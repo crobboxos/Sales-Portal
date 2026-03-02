@@ -1,0 +1,74 @@
+rank,artifact_type,name,integration_score,primary_object,trigger_events,has_callout,has_rest_resource,has_invocable,async_patterns,soql_count,dml_keyword_count,touchpoint_count,summary,path
+1,Class,CalloutHelper,151,,,Y,N,Y,,0,0,2,"CalloutHelper: Flow invocable, HTTP/callout logic",config\apex-metadata-custom\classes\CalloutHelper.cls
+2,Class,VantageApiInvoiceQuery,121,,,Y,N,Y,,0,0,2,"VantageApiInvoiceQuery: Flow invocable, HTTP/callout logic",config\apex-metadata-custom\classes\VantageApiInvoiceQuery.cls
+3,Class,VantageApiInvoiceLinesQuery,121,,,Y,N,Y,,0,0,2,"VantageApiInvoiceLinesQuery: Flow invocable, HTTP/callout logic",config\apex-metadata-custom\classes\VantageApiInvoiceLinesQuery.cls
+4,Trigger,OppSyncTrigger,111,Opportunity,after update,N,N,N,,4,5,1,Trigger on Opportunity (after update),config\apex-metadata-custom\triggers\OppSyncTrigger.trigger
+5,Trigger,OppLineSyncTrigger,107,OpportunityLineItem,"before insert,after insert,after update",N,N,N,,3,9,1,"Trigger on OpportunityLineItem (before insert,after insert,after update)",config\apex-metadata-custom\triggers\OppLineSyncTrigger.trigger
+6,Class,TPSChecker,100,,,Y,N,N,Database.Batchable,1,1,2,"TPSChecker: HTTP/callout logic, async=Database.Batchable",config\apex-metadata-custom\classes\TPSChecker.cls
+7,Class,TPSCallout,100,,,Y,N,N,Database.Batchable,1,1,2,"TPSCallout: HTTP/callout logic, async=Database.Batchable",config\apex-metadata-custom\classes\TPSCallout.cls
+8,Trigger,dlrs_OpportunityTrigger,99,Opportunity,"before delete,before insert,before update,after delete,after insert,after undelete,after update",N,N,N,,0,7,0,"Trigger on Opportunity (before delete,before insert,before update,after delete,after insert,after undelete,after update)",config\apex-metadata-custom\triggers\dlrs_OpportunityTrigger.trigger
+9,Class,PortalCertiniaReceiptApi,98,,,N,Y,N,,0,0,1,PortalCertiniaReceiptApi: REST endpoint,config\apex-metadata-custom\classes\PortalCertiniaReceiptApi.cls
+10,Class,HP_API_AccountService,98,,,Y,N,N,,1,0,2,HP_API_AccountService: HTTP/callout logic,config\apex-metadata-custom\classes\HP_API_AccountService.cls
+11,Class,HPAuthService,92,,,Y,N,N,,1,1,1,HPAuthService: HTTP/callout logic,config\apex-metadata-custom\classes\HPAuthService.cls
+12,Trigger,dlrs_OpportunityLineItemTrigger,89,OpportunityLineItem,"before delete,before insert,before update,after delete,after insert,after undelete,after update",N,N,N,,0,7,0,"Trigger on OpportunityLineItem (before delete,before insert,before update,after delete,after insert,after undelete,after update)",config\apex-metadata-custom\triggers\dlrs_OpportunityLineItemTrigger.trigger
+13,Trigger,dlrs_AccountTrigger,84,Account,"before delete,before insert,before update,after delete,after insert,after undelete,after update",N,N,N,,0,7,0,"Trigger on Account (before delete,before insert,before update,after delete,after insert,after undelete,after update)",config\apex-metadata-custom\triggers\dlrs_AccountTrigger.trigger
+14,Trigger,QuoteLineSyncTrigger,84,QuoteLineItem,"before insert,after insert,after update",N,N,N,,3,10,1,"Trigger on QuoteLineItem (before insert,after insert,after update)",config\apex-metadata-custom\triggers\QuoteLineSyncTrigger.trigger
+15,Trigger,QuoteSyncTrigger,74,Quote,"after insert,after update",N,N,N,,2,6,1,"Trigger on Quote (after insert,after update)",config\apex-metadata-custom\triggers\QuoteSyncTrigger.trigger
+16,Trigger,dlrs_c2godaInvoiceTrigger,64,c2g__codaInvoice__c,"before delete,before insert,before update,after delete,after insert,after undelete,after update",N,N,N,,0,7,0,"Trigger on c2g__codaInvoice__c (before delete,before insert,before update,after delete,after insert,after undelete,after update)",config\apex-metadata-custom\triggers\dlrs_c2godaInvoiceTrigger.trigger
+17,Trigger,dlrs_AssetTrigger,64,Asset,"before delete,before insert,before update,after delete,after insert,after undelete,after update",N,N,N,,0,7,0,"Trigger on Asset (before delete,before insert,before update,after delete,after insert,after undelete,after update)",config\apex-metadata-custom\triggers\dlrs_AssetTrigger.trigger
+18,Class,GenericObjectOperationBatchLauncher,57,,,N,N,Y,Database.executeBatch,0,8,2,"GenericObjectOperationBatchLauncher: Flow invocable, async=Database.executeBatch",config\apex-metadata-custom\classes\GenericObjectOperationBatchLauncher.cls
+19,Class,ProductMergeService,46,,,N,N,N,,3,20,0,ProductMergeService: utility/business logic class,config\apex-metadata-custom\classes\ProductMergeService.cls
+20,Trigger,DisableFeedPostDeletes,40,FeedItem,before delete,N,N,N,,0,1,1,Trigger on FeedItem (before delete),config\apex-metadata-custom\triggers\DisableFeedPostDeletes.trigger
+21,Trigger,DisableFeedCommentDeletes,40,FeedComment,before delete,N,N,N,,0,1,1,Trigger on FeedComment (before delete),config\apex-metadata-custom\triggers\DisableFeedCommentDeletes.trigger
+22,Class,ResolveApprovalRequest,35,,,N,N,Y,,1,0,1,ResolveApprovalRequest: Flow invocable,config\apex-metadata-custom\classes\ResolveApprovalRequest.cls
+23,Class,AgxPayableInvoiceRelease,35,,,N,N,Y,,1,0,1,AgxPayableInvoiceRelease: Flow invocable,config\apex-metadata-custom\classes\AgxPayableInvoiceRelease.cls
+24,Class,AgxPayableInvoiceHold,35,,,N,N,Y,,1,0,1,AgxPayableInvoiceHold: Flow invocable,config\apex-metadata-custom\classes\AgxPayableInvoiceHold.cls
+25,Class,GenericObjectOperationBatch,34,,,N,N,N,Database.Batchable,0,13,1,GenericObjectOperationBatch: async=Database.Batchable,config\apex-metadata-custom\classes\GenericObjectOperationBatch.cls
+26,Class,DiscardInvoices,33,,,N,N,Y,,0,0,1,DiscardInvoices: Flow invocable,config\apex-metadata-custom\classes\DiscardInvoices.cls
+27,Class,BusinessHoursCalculator,33,,,N,N,Y,,0,0,1,BusinessHoursCalculator: Flow invocable,config\apex-metadata-custom\classes\BusinessHoursCalculator.cls
+28,Class,TPSCalloutTest,30,,,Y,N,N,Database.executeBatch,1,1,2,"TPSCalloutTest: HTTP/callout logic, async=Database.executeBatch",config\apex-metadata-custom\classes\TPSCalloutTest.cls
+29,Class,AccountAssetDisposalController,30,,,N,N,N,,5,10,0,AccountAssetDisposalController: utility/business logic class,config\apex-metadata-custom\classes\AccountAssetDisposalController.cls
+30,Class,AssetDisposalWizardController,24,,,N,N,N,,5,7,0,AssetDisposalWizardController: utility/business logic class,config\apex-metadata-custom\classes\AssetDisposalWizardController.cls
+31,Class,TPSCheckerScheduler,16,,,N,N,N,Schedulable;Database.executeBatch,0,0,2,TPSCheckerScheduler: async=Schedulable;Database.executeBatch,config\apex-metadata-custom\classes\TPSCheckerScheduler.cls
+32,Class,AutomaticCashMatching,12,,,N,N,N,,2,4,0,AutomaticCashMatching: utility/business logic class,config\apex-metadata-custom\classes\AutomaticCashMatching.cls
+33,Class,QuoteSyncTestSuite,10,,,N,N,N,,24,54,0,QuoteSyncTestSuite: utility/business logic class,config\apex-metadata-custom\classes\QuoteSyncTestSuite.cls
+34,Class,QuickLightningLookupController,8,,,N,N,N,,3,1,0,QuickLightningLookupController: utility/business logic class,config\apex-metadata-custom\classes\QuickLightningLookupController.cls
+35,Class,ShowProductsController,4,,,N,N,N,,2,0,0,ShowProductsController: utility/business logic class,config\apex-metadata-custom\classes\ShowProductsController.cls
+36,Class,ShowAssets,4,,,N,N,N,,2,0,0,ShowAssets: utility/business logic class,config\apex-metadata-custom\classes\ShowAssets.cls
+37,Class,ShowAccessoriesManagedServices2Assign,4,,,N,N,N,,2,0,0,ShowAccessoriesManagedServices2Assign: utility/business logic class,config\apex-metadata-custom\classes\ShowAccessoriesManagedServices2Assign.cls
+38,Class,ShippingLabelController,4,,,N,N,N,,2,0,0,ShippingLabelController: utility/business logic class,config\apex-metadata-custom\classes\ShippingLabelController.cls
+39,Class,MassDeleteExtension,4,,,N,N,N,,0,2,0,MassDeleteExtension: utility/business logic class,config\apex-metadata-custom\classes\MassDeleteExtension.cls
+40,Class,AccountUpdater,4,,,N,N,N,,1,1,0,AccountUpdater: utility/business logic class,config\apex-metadata-custom\classes\AccountUpdater.cls
+41,Class,xerTransController,2,,,N,N,N,,1,0,0,xerTransController: utility/business logic class,config\apex-metadata-custom\classes\xerTransController.cls
+42,Class,agxBankHoliday,2,,,N,N,N,,1,0,0,agxBankHoliday: utility/business logic class,config\apex-metadata-custom\classes\agxBankHoliday.cls
+43,Class,DisableChatterDeleteDelegate,2,,,N,N,N,,1,0,0,DisableChatterDeleteDelegate: utility/business logic class,config\apex-metadata-custom\classes\DisableChatterDeleteDelegate.cls
+44,Class,CommissionPaymentController,2,,,N,N,N,,1,0,0,CommissionPaymentController: utility/business logic class,config\apex-metadata-custom\classes\CommissionPaymentController.cls
+45,Class,xerTransControllerTest,0,,,N,N,N,,1,0,0,xerTransControllerTest: utility/business logic class,config\apex-metadata-custom\classes\xerTransControllerTest.cls
+46,Class,dlrs_c2godaInvoiceTest,0,,,N,N,N,,1,2,0,dlrs_c2godaInvoiceTest: utility/business logic class,config\apex-metadata-custom\classes\dlrs_c2godaInvoiceTest.cls
+47,Class,dlrs_OpportunityTest,0,,,N,N,N,,0,4,0,dlrs_OpportunityTest: utility/business logic class,config\apex-metadata-custom\classes\dlrs_OpportunityTest.cls
+48,Class,dlrs_OpportunityLineItemTest,0,,,N,N,N,,0,0,0,dlrs_OpportunityLineItemTest: utility/business logic class,config\apex-metadata-custom\classes\dlrs_OpportunityLineItemTest.cls
+49,Class,dlrs_AssetTest,0,,,N,N,N,,0,0,0,dlrs_AssetTest: utility/business logic class,config\apex-metadata-custom\classes\dlrs_AssetTest.cls
+50,Class,dlrs_AccountTest,0,,,N,N,N,,0,1,0,dlrs_AccountTest: utility/business logic class,config\apex-metadata-custom\classes\dlrs_AccountTest.cls
+51,Class,agxBankHolidayTest,0,,,N,N,N,,0,0,0,agxBankHolidayTest: utility/business logic class,config\apex-metadata-custom\classes\agxBankHolidayTest.cls
+52,Class,VantageApiInvoiceQueryTest,0,,,N,N,N,,0,0,0,VantageApiInvoiceQueryTest: utility/business logic class,config\apex-metadata-custom\classes\VantageApiInvoiceQueryTest.cls
+53,Class,VantageApiInvoiceLinesQueryTest,0,,,N,N,N,,0,0,0,VantageApiInvoiceLinesQueryTest: utility/business logic class,config\apex-metadata-custom\classes\VantageApiInvoiceLinesQueryTest.cls
+54,Class,TriggerStopper,0,,,N,N,N,,0,0,0,TriggerStopper: utility/business logic class,config\apex-metadata-custom\classes\TriggerStopper.cls
+55,Class,TestShippingLabelController,0,,,N,N,N,,1,4,0,TestShippingLabelController: utility/business logic class,config\apex-metadata-custom\classes\TestShippingLabelController.cls
+56,Class,TestAgxPayableInvoiceRelease,0,,,N,N,N,,4,0,0,TestAgxPayableInvoiceRelease: utility/business logic class,config\apex-metadata-custom\classes\TestAgxPayableInvoiceRelease.cls
+57,Class,TPSCheckerTest,0,,,N,N,N,Database.executeBatch,1,1,1,TPSCheckerTest: async=Database.executeBatch,config\apex-metadata-custom\classes\TPSCheckerTest.cls
+58,Class,TPSCheckerSchedulerTest,0,,,N,N,N,System.schedule,0,2,1,TPSCheckerSchedulerTest: async=System.schedule,config\apex-metadata-custom\classes\TPSCheckerSchedulerTest.cls
+59,Class,ShowProductsControllerTest,0,,,N,N,N,,0,5,0,ShowProductsControllerTest: utility/business logic class,config\apex-metadata-custom\classes\ShowProductsControllerTest.cls
+60,Class,ShowAssetsTest,0,,,N,N,N,,0,5,0,ShowAssetsTest: utility/business logic class,config\apex-metadata-custom\classes\ShowAssetsTest.cls
+61,Class,ResolveApprovalRequestsTest,0,,,N,N,N,,3,0,0,ResolveApprovalRequestsTest: utility/business logic class,config\apex-metadata-custom\classes\ResolveApprovalRequestsTest.cls
+62,Class,QuoteSyncUtil,0,,,N,N,N,,0,0,0,QuoteSyncUtil: utility/business logic class,config\apex-metadata-custom\classes\QuoteSyncUtil.cls
+63,Class,QuickLightningLookupControllerTest,0,,,N,N,N,,0,2,0,QuickLightningLookupControllerTest: utility/business logic class,config\apex-metadata-custom\classes\QuickLightningLookupControllerTest.cls
+64,Class,MassDeleteExtensionTest,0,,,N,N,N,,0,0,0,MassDeleteExtensionTest: utility/business logic class,config\apex-metadata-custom\classes\MassDeleteExtensionTest.cls
+65,Class,GenericObjectOperationBatchTest,0,,,N,N,N,Database.executeBatch,5,19,1,GenericObjectOperationBatchTest: async=Database.executeBatch,config\apex-metadata-custom\classes\GenericObjectOperationBatchTest.cls
+66,Class,DiscardInvoicesTest,0,,,N,N,N,,0,0,0,DiscardInvoicesTest: utility/business logic class,config\apex-metadata-custom\classes\DiscardInvoicesTest.cls
+67,Class,DisableChatterDeletesTestSuite,0,,,N,N,N,,10,51,0,DisableChatterDeletesTestSuite: utility/business logic class,config\apex-metadata-custom\classes\DisableChatterDeletesTestSuite.cls
+68,Class,ConductorFromListViewControllerTest,0,,,N,N,N,,1,1,0,ConductorFromListViewControllerTest: utility/business logic class,config\apex-metadata-custom\classes\ConductorFromListViewControllerTest.cls
+69,Class,ConductorFromListViewController,0,,,N,N,N,,0,0,0,ConductorFromListViewController: utility/business logic class,config\apex-metadata-custom\classes\ConductorFromListViewController.cls
+70,Class,CommissionPaymentControllerTest,0,,,N,N,N,,0,0,0,CommissionPaymentControllerTest: utility/business logic class,config\apex-metadata-custom\classes\CommissionPaymentControllerTest.cls
+71,Class,CalloutHelperTest,0,,,N,N,N,,0,0,0,CalloutHelperTest: utility/business logic class,config\apex-metadata-custom\classes\CalloutHelperTest.cls
+72,Class,BusinessHoursCalculatorTest,0,,,N,N,N,,0,0,0,BusinessHoursCalculatorTest: utility/business logic class,config\apex-metadata-custom\classes\BusinessHoursCalculatorTest.cls
+73,Class,AgxPayableInvoiceHoldTest2,0,,,N,N,N,,4,0,0,AgxPayableInvoiceHoldTest2: utility/business logic class,config\apex-metadata-custom\classes\AgxPayableInvoiceHoldTest2.cls

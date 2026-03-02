@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_New_Picklist_Notification</name>
+        <label>Send New Picklist Notification</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <actionName>SCMC__Picklist__c.New_Picklist_Alert</actionName>
+        <actionType>emailAlert</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>SCMC__Picklist__c.New_Picklist_Alert</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <apiVersion>62.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Check_Line_of_Business</name>
+        <label>Check Line of Business</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>LOB_is_DIGW</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SCMC__Sales_Order__r.link_Opp2SO_Id__r.Lines_Of_Business__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Digital Workspace</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_New_Picklist_Notification</targetReference>
+            </connector>
+            <label>LOB is DIGW</label>
+        </rules>
+    </decisions>
+    <description>Sends email to Wokingham Warehouse when a picklist is created.</description>
+    <environments>Default</environments>
+    <interviewLabel>New Picklist Notification {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>New Picklist Notification</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_Line_of_Business</targetReference>
+        </connector>
+        <object>SCMC__Picklist__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

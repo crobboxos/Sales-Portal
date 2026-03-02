@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Counts the number of invoices.</description>
+        <name>Invoice_Record_Count</name>
+        <label>Invoice Count</label>
+        <locationX>666</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>Invoice_Count</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_export_status</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Updates the exported count by one</description>
+        <name>Update_count</name>
+        <label>Update count</label>
+        <locationX>534</locationX>
+        <locationY>815</locationY>
+        <assignmentItems>
+            <assignToReference>Exported_Count</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Every_Invoice</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Compares invoiced count to record count.</description>
+        <name>Check_counts</name>
+        <label>Check counts</label>
+        <locationX>446</locationX>
+        <locationY>1127</locationY>
+        <defaultConnector>
+            <targetReference>Exist</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Equals</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Exported_Count</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Invoice_Count</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Invoice_Count</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_to_Completed</targetReference>
+            </connector>
+            <label>Equals</label>
+        </rules>
+        <rules>
+            <name>Less_Than</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Exported_Count</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Exported_Count</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <elementReference>Invoice_Count</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Invoice_Count</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Partially_completed</targetReference>
+            </connector>
+            <label>Less Than</label>
+        </rules>
+        <rules>
+            <name>No_invoices</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Invoice_Count</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>None</targetReference>
+            </connector>
+            <label>No invoices</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checks the export status of the current invoice.</description>
+        <name>Check_export_status</name>
+        <label>Check export status</label>
+        <locationX>666</locationX>
+        <locationY>695</locationY>
+        <defaultConnector>
+            <targetReference>Every_Invoice</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Exported_already</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Every_Invoice.SCMFFA__Sales_Invoice__c</leftValueReference>
+                <operator>WasSet</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_count</targetReference>
+            </connector>
+            <label>Exported already</label>
+        </rules>
+    </decisions>
+    <description>Updates the invoiced status field when the record is updated.</description>
+    <interviewLabel>Update the invoiced status field {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update the invoiced status field</label>
+    <loops>
+        <description>For each of the invoices currently associated with this Sales Order...</description>
+        <name>Every_Invoice</name>
+        <label>Every Invoice</label>
+        <locationX>446</locationX>
+        <locationY>455</locationY>
+        <collectionReference>Get_Invoices</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Invoice_Record_Count</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Check_counts</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get associated OPI invoices.</description>
+        <name>Get_Invoices</name>
+        <label>Get Invoices</label>
+        <locationX>446</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Every_Invoice</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SCMC__Sales_Order__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>SCMC__Invoicing__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>SCMC__Export_Status__c</queriedFields>
+        <queriedFields>link_CreateSIN_Id__c</queriedFields>
+        <queriedFields>SCMFFA__Sales_Invoice__c</queriedFields>
+        <sortField>LastActivityDate</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Exist but none pushed yet.</description>
+        <name>Exist</name>
+        <label>Exist</label>
+        <locationX>842</locationX>
+        <locationY>1247</locationY>
+        <inputAssignments>
+            <field>Invoiced_Status__c</field>
+            <value>
+                <stringValue>Exist, none pushed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>No invoices exist for this Sales Order currently.</description>
+        <name>None</name>
+        <label>None</label>
+        <locationX>578</locationX>
+        <locationY>1247</locationY>
+        <inputAssignments>
+            <field>Invoiced_Status__c</field>
+            <value>
+                <stringValue>None exist</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Partially invoiced</description>
+        <name>Partially_completed</name>
+        <label>Partially completed</label>
+        <locationX>314</locationX>
+        <locationY>1247</locationY>
+        <inputAssignments>
+            <field>Invoiced_Status__c</field>
+            <value>
+                <stringValue>Exist, some pushed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Sets the Invoiced status to &apos;Completed&apos;</description>
+        <name>Set_to_Completed</name>
+        <label>Set to Completed</label>
+        <locationX>50</locationX>
+        <locationY>1247</locationY>
+        <inputAssignments>
+            <field>Invoiced_Status__c</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>320</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Invoices</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Invoiced_Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </filters>
+        <object>SCMC__Sales_Order__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Counts the number of invoices that have been exported.</description>
+        <name>Exported_Count</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Counts the number of related invoices.</description>
+        <name>Invoice_Count</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+</Flow>

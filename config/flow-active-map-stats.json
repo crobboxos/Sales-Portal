@@ -1,0 +1,13 @@
+{
+  "active_flow_count": 235,
+  "flows_with_touchpoints": 69,
+  "flows_with_external_candidates": 25,
+  "touchpoint_row_count": 131,
+  "external_touchpoint_row_count": 35,
+  "output_files": [
+    "config\\flow-active-map.csv",
+    "config\\flow-active-touchpoints.csv",
+    "config\\flow-active-external-touchpoints.csv",
+    "config\\flow-active-package.xml"
+  ]
+}

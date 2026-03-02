@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <description>Checks the JE to see if it comes from an SCM/OPI Invoice which has been voided.
+If it has JE date will be overridden to be today&apos;s date.</description>
+        <name>Date_Override_Needed</name>
+        <label>Date Override Needed</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>DONYes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SCMFFA__SCM_Perpetual_Transaction__r.SCMFFA__Invoice_Line_Item__r.SCMC__Invoicing__r.SCMC__Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Voided</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_JE_Date</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Amends the JE Date for the customised drop-ship reversal created on SCM Invoice Void.
+ITPR uses the invoice/ship date to drive the JE date; this updates this void/reversal to the processing (today) date.</description>
+    <environments>Default</environments>
+    <interviewLabel>FFXSCM - Update JE Date for SCM Invoice Void {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>FFXSCM - Update JE Date for SCM Invoice Drop-Ship Void</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_JE_Date</name>
+        <label>Update JE Date</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <inputAssignments>
+            <field>c2g__JournalDate__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Date_Override_Needed</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>c2g__Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>SCM Drop Ship Journal</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SCMFFA__SCM_Perpetual_Transaction__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>c2g__codaJournal__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
