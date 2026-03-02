@@ -1,0 +1,50 @@
+{
+  "status": 0,
+  "result": {
+    "records": [
+      {
+        "attributes": {
+          "type": "RecordType",
+          "url": "/services/data/v66.0/sobjects/RecordType/0124K000000Mg7EQAS"
+        },
+        "Id": "0124K000000Mg7EQAS",
+        "Name": "Transactional Sales",
+        "DeveloperName": "Transactional_Sales",
+        "IsActive": true
+      },
+      {
+        "attributes": {
+          "type": "RecordType",
+          "url": "/services/data/v66.0/sobjects/RecordType/0124K000000Mg7TQAS"
+        },
+        "Id": "0124K000000Mg7TQAS",
+        "Name": "Xeretec Sales Process",
+        "DeveloperName": "Xeretec_Sales_Process",
+        "IsActive": true
+      },
+      {
+        "attributes": {
+          "type": "RecordType",
+          "url": "/services/data/v66.0/sobjects/RecordType/0128e000000Xd87AAC"
+        },
+        "Id": "0128e000000Xd87AAC",
+        "Name": "Transactional Sales Closed Won Record Type",
+        "DeveloperName": "Transactional_Sales_Closed_Won_Record_Type",
+        "IsActive": true
+      },
+      {
+        "attributes": {
+          "type": "RecordType",
+          "url": "/services/data/v66.0/sobjects/RecordType/0128e000000Xd88AAC"
+        },
+        "Id": "0128e000000Xd88AAC",
+        "Name": "Xeretec Sales Process Closed Won Record Type",
+        "DeveloperName": "Xeretec_Sales_Process_Closed_Won_Record_Type",
+        "IsActive": true
+      }
+    ],
+    "totalSize": 4,
+    "done": true
+  },
+  "warnings": []
+}

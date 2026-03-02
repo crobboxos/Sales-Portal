@@ -1,0 +1,27 @@
+Id,ValidationName,EntityDefinition.QualifiedApiName,Active,ErrorMessage,ErrorDisplayField
+03d4K0000000UAuQAM,Enforce_selection_of_Type,Opportunity,false,You need to assign a deal type to this Opportunity.,Type
+03d4K0000000UBYQA2,Enforce_notification_check,Opportunity,false,Please ensure the notify field is completed,Top of Page
+03d4K000000gWikQAE,ION_If_SO_Req_ERP_Company_Must_Exist,Opportunity,true,Company ERP must be set to allow creation of a Sales Order.,Company ERP
+03d4K000000gWilQAE,ION_OnlySetTrueWhenOppComplete,Opportunity,true,SalesOrder Required can only be set to True (Checked) once the Opportunity is at Closed Won,Sales Order Req
+03d4K000000gWimQAE,ION_SO_creation_requires_SO_Type,Opportunity,true,Sales Order Type must be chosen before a Sales Order can be created from this Opportunity,Sales Order Type
+03d4K000000gWinQAE,ION_Product_Must_Have_SO_Type_if_SO_Req,OpportunityLineItem,false,You must set a Sales Order line type if a sales order is required,Top of Page
+03d4K000000gWioQAE,ION_Product_must_have_Item_Master_for_SO,OpportunityLineItem,true,You must ensure that the product you are using has a related item in OPI to be able to create a Sales Order line,Top of Page
+03d8e000000ChL8AAK,Enforce_Technical_Evaluation,Opportunity,false,Please complete the Technical Evaluation before proceeding with the deal.,Top of Page
+03d8e000000CiFbAAK,Deal_Closed_Won_Fully_Billed,Opportunity,false,You cannot modify this opportunity given its current stage and/or billing status.,Top of Page
+03d8e000000CiFgAAK,Deal_Closed_Won_Billed,OpportunityLineItem,false,LINE - You cannot modify or add line items to this opportunity given its current stage and/or billing status.,Top of Page
+03d8e000000TNciAAG,Approval_Status_Approved_to_ClosedWon,Opportunity,true,Cannot move to ClosedWon until Compliance have Approved,Top of Page
+03d8e000000TNcjAAG,Closed_Lost_Reason,Opportunity,true,You must enter a Loss Reason when the Opportunity is set to Closed Lost.,Top of Page
+03d8e000000TNckAAG,Credit_Safe_check_Complete,Opportunity,false,Credit Safe has not been refreshed in last 90 days,Top of Page
+03d8e000000TNclAAG,Key_Info_to_be_populated_before_CW,Opportunity,true,"Ensure the customer is set to active, active flag is ticked and the customers email is populated.",Top of Page
+03d8e000000TNcmAAG,OP_Lock_Fields,Opportunity,false,You can not edit this opportunity.,Top of Page
+03d8e000000TNcnAAG,OP_Lock_Fields2,Opportunity,false,You can not edit this opportunity.,Top of Page
+03d8e000000TNd3AAG,Stop_Supplies_Selection,Opportunity,true,"You can't choose ""Supplies"" value. Please choose another one.",Lines Of Business
+03d8e000000TNd8AAG,Lines_of_cusiness_cannot_be_bank,Opportunity,true,Populate Line of Business field.,Top of Page
+03dAe000003d3NhIAI,Subscription_Funding_Type_Validation,Opportunity,false,Funding type Subscription can not be chosen in a Transactional record,Funding Type
+03dAe000003geFRIAY,Software_Product_Validation,OpportunityLineItem,true,This product cannot be added to this line of business. Please choose software items only.,Top of Page
+03dPx0000004b4DIAQ,Value_Greater_Than_0,OpportunityLineItem,true,The Value of the quantity must be more than 0,Top of Page
+03dPx0000008M09IAE,Account_Name_Populated,Opportunity,true,The Account Name field must be populated to save this opportunity.,Account Name
+03dPx0000008ofZIAQ,Enforce_DAAS_Technical_Evaluation,Opportunity,true,Please complete the Technical Evaluation before proceeding with the deal.,Top of Page
+03dPx000000INpNIAW,Credit_Safe_must_be_checked,Opportunity,true,The account is not linked to Creditsafe or is missing a company number or DC trade number. Please link the account with Creditsafe.,Top of Page
+03dPx000000Im7pIAC,Quantity_Whole_Number,OpportunityLineItem,true,Quantity must be 1 or more,Top of Page
+03dPx000000MpDZIA0,Closed_Won_Locked,OpportunityLineItem,true,You cannot modify or delete Opportunity Products when the Opportunity is Closed Won.,Top of Page

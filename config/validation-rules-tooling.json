@@ -1,0 +1,504 @@
+{
+  "status": 0,
+  "result": {
+    "records": [
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d4K0000000UAuQAM"
+        },
+        "Id": "03d4K0000000UAuQAM",
+        "ValidationName": "Enforce_selection_of_Type",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": false,
+        "ErrorMessage": "You need to assign a deal type to this Opportunity.",
+        "ErrorDisplayField": "Type",
+        "Description": "Requires the type field to be something other than -- None --"
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d4K0000000UBYQA2"
+        },
+        "Id": "03d4K0000000UBYQA2",
+        "ValidationName": "Enforce_notification_check",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": false,
+        "ErrorMessage": "Please ensure the notify field is completed",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d4K000000gWikQAE"
+        },
+        "Id": "03d4K000000gWikQAE",
+        "ValidationName": "ION_If_SO_Req_ERP_Company_Must_Exist",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "Company ERP must be set to allow creation of a Sales Order.",
+        "ErrorDisplayField": "Company ERP",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d4K000000gWilQAE"
+        },
+        "Id": "03d4K000000gWilQAE",
+        "ValidationName": "ION_OnlySetTrueWhenOppComplete",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "SalesOrder Required can only be set to True (Checked) once the Opportunity is at Closed Won",
+        "ErrorDisplayField": "Sales Order Req",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d4K000000gWimQAE"
+        },
+        "Id": "03d4K000000gWimQAE",
+        "ValidationName": "ION_SO_creation_requires_SO_Type",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "Sales Order Type must be chosen before a Sales Order can be created from this Opportunity",
+        "ErrorDisplayField": "Sales Order Type",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d4K000000gWinQAE"
+        },
+        "Id": "03d4K000000gWinQAE",
+        "ValidationName": "ION_Product_Must_Have_SO_Type_if_SO_Req",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/OpportunityLineItem"
+          },
+          "QualifiedApiName": "OpportunityLineItem"
+        },
+        "Active": false,
+        "ErrorMessage": "You must set a Sales Order line type if a sales order is required",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d4K000000gWioQAE"
+        },
+        "Id": "03d4K000000gWioQAE",
+        "ValidationName": "ION_Product_must_have_Item_Master_for_SO",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/OpportunityLineItem"
+          },
+          "QualifiedApiName": "OpportunityLineItem"
+        },
+        "Active": true,
+        "ErrorMessage": "You must ensure that the product you are using has a related item in OPI to be able to create a Sales Order line",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000ChL8AAK"
+        },
+        "Id": "03d8e000000ChL8AAK",
+        "ValidationName": "Enforce_Technical_Evaluation",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": false,
+        "ErrorMessage": "Please complete the Technical Evaluation before proceeding with the deal.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000CiFbAAK"
+        },
+        "Id": "03d8e000000CiFbAAK",
+        "ValidationName": "Deal_Closed_Won_Fully_Billed",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": false,
+        "ErrorMessage": "You cannot modify this opportunity given its current stage and/or billing status.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000CiFgAAK"
+        },
+        "Id": "03d8e000000CiFgAAK",
+        "ValidationName": "Deal_Closed_Won_Billed",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/OpportunityLineItem"
+          },
+          "QualifiedApiName": "OpportunityLineItem"
+        },
+        "Active": false,
+        "ErrorMessage": "LINE - You cannot modify or add line items to this opportunity given its current stage and/or billing status.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000TNciAAG"
+        },
+        "Id": "03d8e000000TNciAAG",
+        "ValidationName": "Approval_Status_Approved_to_ClosedWon",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "Cannot move to ClosedWon until Compliance have Approved",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000TNcjAAG"
+        },
+        "Id": "03d8e000000TNcjAAG",
+        "ValidationName": "Closed_Lost_Reason",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "You must enter a Loss Reason when the Opportunity is set to Closed Lost.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000TNckAAG"
+        },
+        "Id": "03d8e000000TNckAAG",
+        "ValidationName": "Credit_Safe_check_Complete",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": false,
+        "ErrorMessage": "Credit Safe has not been refreshed in last 90 days",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000TNclAAG"
+        },
+        "Id": "03d8e000000TNclAAG",
+        "ValidationName": "Key_Info_to_be_populated_before_CW",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "Ensure the customer is set to active, active flag is ticked and the customers email is populated.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": "Checks account info updated before closed won so sales orders create."
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000TNcmAAG"
+        },
+        "Id": "03d8e000000TNcmAAG",
+        "ValidationName": "OP_Lock_Fields",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": false,
+        "ErrorMessage": "You can not edit this opportunity.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000TNcnAAG"
+        },
+        "Id": "03d8e000000TNcnAAG",
+        "ValidationName": "OP_Lock_Fields2",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": false,
+        "ErrorMessage": "You can not edit this opportunity.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000TNd3AAG"
+        },
+        "Id": "03d8e000000TNd3AAG",
+        "ValidationName": "Stop_Supplies_Selection",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "You can't choose \"Supplies\" value. Please choose another one.",
+        "ErrorDisplayField": "Lines Of Business",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03d8e000000TNd8AAG"
+        },
+        "Id": "03d8e000000TNd8AAG",
+        "ValidationName": "Lines_of_cusiness_cannot_be_bank",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "Populate Line of Business field.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": "error if line of business blank."
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03dAe000003d3NhIAI"
+        },
+        "Id": "03dAe000003d3NhIAI",
+        "ValidationName": "Subscription_Funding_Type_Validation",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": false,
+        "ErrorMessage": "Funding type Subscription can not be chosen in a Transactional record",
+        "ErrorDisplayField": "Funding Type",
+        "Description": "If Opp is Transactional then Subscription can not be chosen in funding type"
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03dAe000003geFRIAY"
+        },
+        "Id": "03dAe000003geFRIAY",
+        "ValidationName": "Software_Product_Validation",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/OpportunityLineItem"
+          },
+          "QualifiedApiName": "OpportunityLineItem"
+        },
+        "Active": true,
+        "ErrorMessage": "This product cannot be added to this line of business. Please choose software items only.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": "If Opp is Line Of Business Sofware then the Product Catagory has to be the same"
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03dPx0000004b4DIAQ"
+        },
+        "Id": "03dPx0000004b4DIAQ",
+        "ValidationName": "Value_Greater_Than_0",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/OpportunityLineItem"
+          },
+          "QualifiedApiName": "OpportunityLineItem"
+        },
+        "Active": true,
+        "ErrorMessage": "The Value of the quantity must be more than 0",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03dPx0000008M09IAE"
+        },
+        "Id": "03dPx0000008M09IAE",
+        "ValidationName": "Account_Name_Populated",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "The Account Name field must be populated to save this opportunity.",
+        "ErrorDisplayField": "Account Name",
+        "Description": "The account name must be populated."
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03dPx0000008ofZIAQ"
+        },
+        "Id": "03dPx0000008ofZIAQ",
+        "ValidationName": "Enforce_DAAS_Technical_Evaluation",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "Please complete the Technical Evaluation before proceeding with the deal.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": "Enforcing Digital Workspace Technical Evaluation"
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03dPx000000INpNIAW"
+        },
+        "Id": "03dPx000000INpNIAW",
+        "ValidationName": "Credit_Safe_must_be_checked",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/Opportunity"
+          },
+          "QualifiedApiName": "Opportunity"
+        },
+        "Active": true,
+        "ErrorMessage": "The account is not linked to Creditsafe or is missing a company number or DC trade number. Please link the account with Creditsafe.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": "Stops an opportunity being created if account has not been credit safe checked or has a Company Reg/DC Trade."
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03dPx000000Im7pIAC"
+        },
+        "Id": "03dPx000000Im7pIAC",
+        "ValidationName": "Quantity_Whole_Number",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/OpportunityLineItem"
+          },
+          "QualifiedApiName": "OpportunityLineItem"
+        },
+        "Active": true,
+        "ErrorMessage": "Quantity must be 1 or more",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      },
+      {
+        "attributes": {
+          "type": "ValidationRule",
+          "url": "/services/data/v66.0/tooling/sobjects/ValidationRule/03dPx000000MpDZIA0"
+        },
+        "Id": "03dPx000000MpDZIA0",
+        "ValidationName": "Closed_Won_Locked",
+        "EntityDefinition": {
+          "attributes": {
+            "type": "EntityDefinition",
+            "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/OpportunityLineItem"
+          },
+          "QualifiedApiName": "OpportunityLineItem"
+        },
+        "Active": true,
+        "ErrorMessage": "You cannot modify or delete Opportunity Products when the Opportunity is Closed Won.",
+        "ErrorDisplayField": "Top of Page",
+        "Description": null
+      }
+    ],
+    "totalSize": 26,
+    "done": true
+  },
+  "warnings": []
+}

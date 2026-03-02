@@ -1,0 +1,20 @@
+{
+  "status": 0,
+  "result": {
+    "records": [
+      {
+        "attributes": {
+          "type": "Pricebook2",
+          "url": "/services/data/v66.0/sobjects/Pricebook2/01s4K000005dhNAQAY"
+        },
+        "Id": "01s4K000005dhNAQAY",
+        "Name": "Standard Price Book",
+        "IsActive": true,
+        "IsStandard": true
+      }
+    ],
+    "totalSize": 1,
+    "done": true
+  },
+  "warnings": []
+}

@@ -1,0 +1,262 @@
+[
+  {
+    "Id": "03d4K0000000UAuQAM",
+    "Entity": "Opportunity",
+    "ValidationName": "Enforce_selection_of_Type",
+    "Active": false,
+    "ErrorDisplayField": "Type",
+    "ErrorMessage": "You need to assign a deal type to this Opportunity.",
+    "ErrorConditionFormula": "ISBLANK(TEXT( Type ))",
+    "Description": "Requires the type field to be something other than -- None --"
+  },
+  {
+    "Id": "03d4K0000000UBYQA2",
+    "Entity": "Opportunity",
+    "ValidationName": "Enforce_notification_check",
+    "Active": false,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "Please ensure the notify field is completed",
+    "ErrorConditionFormula": "AND(NOT($Profile.Name =\"Compliance Team\"),NOT(ISPICKVAL( Notifiy__c ,\"No requirement\")),NOT(ISPICKVAL( Notifiy__c ,\"Billing Team\")))",
+    "Description": null
+  },
+  {
+    "Id": "03d4K000000gWikQAE",
+    "Entity": "Opportunity",
+    "ValidationName": "ION_If_SO_Req_ERP_Company_Must_Exist",
+    "Active": true,
+    "ErrorDisplayField": "Company ERP",
+    "ErrorMessage": "Company ERP must be set to allow creation of a Sales Order.",
+    "ErrorConditionFormula": "IF(AND( IWM_Sales_Order_Req__c , ISBLANK( Company_ERP__c )), True, False)",
+    "Description": null
+  },
+  {
+    "Id": "03d4K000000gWilQAE",
+    "Entity": "Opportunity",
+    "ValidationName": "ION_OnlySetTrueWhenOppComplete",
+    "Active": true,
+    "ErrorDisplayField": "Sales Order Req",
+    "ErrorMessage": "SalesOrder Required can only be set to True (Checked) once the Opportunity is at Closed Won",
+    "ErrorConditionFormula": "IF(AND(IWM_Sales_Order_Req__c,  NOT(TEXT(StageName) = \"Closed Won\"), NOT(TEXT(StageName) = \"Closed Lost\")),True,False)",
+    "Description": null
+  },
+  {
+    "Id": "03d4K000000gWimQAE",
+    "Entity": "Opportunity",
+    "ValidationName": "ION_SO_creation_requires_SO_Type",
+    "Active": true,
+    "ErrorDisplayField": "Sales Order Type",
+    "ErrorMessage": "Sales Order Type must be chosen before a Sales Order can be created from this Opportunity",
+    "ErrorConditionFormula": "IF(AND( IWM_Sales_Order_Req__c, ISBLANK(TEXT( IWM_Sales_Order_Type__c ))), True, False)",
+    "Description": null
+  },
+  {
+    "Id": "03d4K000000gWinQAE",
+    "Entity": "OpportunityLineItem",
+    "ValidationName": "ION_Product_Must_Have_SO_Type_if_SO_Req",
+    "Active": false,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "You must set a Sales Order line type if a sales order is required",
+    "ErrorConditionFormula": "IF( AND( Opportunity.IWM_Sales_Order_Req__c, ISBLANK(TEXT( IWM_Sales_Order_Line_type__c))), true, false)",
+    "Description": null
+  },
+  {
+    "Id": "03d4K000000gWioQAE",
+    "Entity": "OpportunityLineItem",
+    "ValidationName": "ION_Product_must_have_Item_Master_for_SO",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "You must ensure that the product you are using has a related item in OPI to be able to create a Sales Order line",
+    "ErrorConditionFormula": "IF(AND(ISBLANK( Product2.link_OPIItem_Id__c), NOT(ISBLANK(TEXT( IWM_Sales_Order_Line_type__c )))), True, False)",
+    "Description": null
+  },
+  {
+    "Id": "03d8e000000ChL8AAK",
+    "Entity": "Opportunity",
+    "ValidationName": "Enforce_Technical_Evaluation",
+    "Active": false,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "Please complete the Technical Evaluation before proceeding with the deal.",
+    "ErrorConditionFormula": "AND(\r\n RecordType.Name == \"Xeretec Sales Process\",\r\nNOT(\r\nOR(\r\nISPICKVAL(StageName , \"Open\"),\r\nISPICKVAL(StageName , \"Qualify \u0026 Develop\"),\r\nISPICKVAL(StageName , \"Technical Evaluation\"),\r\nISPICKVAL(StageName , \"Closed Lost\")\r\n)\r\n),\r\nOR(\r\nISBLANK(TEXT(Technical_Approval_Status__c)),\r\nNOT(ISPICKVAL(Technical_Approval_Status__c, \"Approved\"))\r\n),\r\nISPICKVAL(Lines_Of_Business__c, \"Print\"),\r\nIF(RecordType.Id == \"0124K000000Mg7T\",TRUE,FALSE)\r\n)",
+    "Description": null
+  },
+  {
+    "Id": "03d8e000000CiFbAAK",
+    "Entity": "Opportunity",
+    "ValidationName": "Deal_Closed_Won_Fully_Billed",
+    "Active": false,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "You cannot modify this opportunity given its current stage and/or billing status.",
+    "ErrorConditionFormula": "OR(\r\n    AND(\r\n        ISPICKVAL(StageName, \u0027Closed Won\u0027),\r\n        $User.ProfileId = \u002700e8e0000011h2F\u0027,\r\n        NOT(ISCHANGED(Notifiy__c))\r\n    ),\r\n    AND(\r\n        ISPICKVAL(StageName, \u0027Closed Won\u0027),\r\n        Billed_Status__c = \u0027Completely Billed\u0027,\r\n        NOT(ISCHANGED(Notifiy__c))\r\n    )\r\n)",
+    "Description": null
+  },
+  {
+    "Id": "03d8e000000CiFgAAK",
+    "Entity": "OpportunityLineItem",
+    "ValidationName": "Deal_Closed_Won_Billed",
+    "Active": false,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "LINE - You cannot modify or add line items to this opportunity given its current stage and/or billing status.",
+    "ErrorConditionFormula": "OR(\r\n  AND(\r\n     ISPICKVAL(Opportunity.StageName, \u0027Closed Won\u0027),\r\n     $User.ProfileId = \u002700e8e0000011h2F\u0027\r\n  ),\r\n  AND(\r\n     ISPICKVAL(Opportunity.StageName, \u0027Closed Won\u0027),\r\n     Opportunity.Billed_Status__c = \u0027Completely Billed\u0027,\r\n     NOT(ISCHANGED(CP_Override__c)),\r\n     $User.Id \u003c\u003e \u00270054K0000051F7A\u0027 \r\n  )\r\n)",
+    "Description": null
+  },
+  {
+    "Id": "03d8e000000TNciAAG",
+    "Entity": "Opportunity",
+    "ValidationName": "Approval_Status_Approved_to_ClosedWon",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "Cannot move to ClosedWon until Compliance have Approved",
+    "ErrorConditionFormula": "AND(ISPICKVAL(StageName,\"Closed Won\"),TEXT(Approval_Status__c)!=\"Approved\", !$Permission.Close_Opps_Override \r\n\r\n)",
+    "Description": null
+  },
+  {
+    "Id": "03d8e000000TNcjAAG",
+    "Entity": "Opportunity",
+    "ValidationName": "Closed_Lost_Reason",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "You must enter a Loss Reason when the Opportunity is set to Closed Lost.",
+    "ErrorConditionFormula": "AND(\r\nISPICKVAL(StageName, \"Closed Lost\"),\r\nISBLANK(TEXT( Loss_Reason__c )))",
+    "Description": null
+  },
+  {
+    "Id": "03d8e000000TNckAAG",
+    "Entity": "Opportunity",
+    "ValidationName": "Credit_Safe_check_Complete",
+    "Active": false,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "Credit Safe has not been refreshed in last 90 days",
+    "ErrorConditionFormula": "AND(ISPICKVAL(StageName,\"Compliance Approval\"),( Account.c2g__CODACreditLimitReviewed__c \u003c=today()-90))",
+    "Description": null
+  },
+  {
+    "Id": "03d8e000000TNclAAG",
+    "Entity": "Opportunity",
+    "ValidationName": "Key_Info_to_be_populated_before_CW",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "Ensure the customer is set to active, active flag is ticked and the customers email is populated.",
+    "ErrorConditionFormula": "AND( \r\n   OR(!Account.SCMC__Active__c , !Account.SCMC__Customer__c, ISBLANK(Account.SCMC__E_Mail__c))\r\n, ISPICKVAL(StageName,\"Closed Won\") )",
+    "Description": "Checks account info updated before closed won so sales orders create."
+  },
+  {
+    "Id": "03d8e000000TNcmAAG",
+    "Entity": "Opportunity",
+    "ValidationName": "OP_Lock_Fields",
+    "Active": false,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "You can not edit this opportunity.",
+    "ErrorConditionFormula": "OR(\n$User.Email \u003c\u003e \"martina.finch@xeretec.co.uk\",\nISPICKVAL( PRIORVALUE(StageName), \"Closed Won\"))",
+    "Description": null
+  },
+  {
+    "Id": "03d8e000000TNcnAAG",
+    "Entity": "Opportunity",
+    "ValidationName": "OP_Lock_Fields2",
+    "Active": false,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "You can not edit this opportunity.",
+    "ErrorConditionFormula": "AND(\n$User.Email =\"martina.finch@xeretec.co.uk.invalid\",\nNOT(ISPICKVAL(PRIORVALUE(StageName), \"Closed Won\")))",
+    "Description": null
+  },
+  {
+    "Id": "03d8e000000TNd3AAG",
+    "Entity": "Opportunity",
+    "ValidationName": "Stop_Supplies_Selection",
+    "Active": true,
+    "ErrorDisplayField": "Lines Of Business",
+    "ErrorMessage": "You can\u0027t choose \"Supplies\" value. Please choose another one.",
+    "ErrorConditionFormula": "AND(\r\n    ISPICKVAL( Lines_Of_Business__c  , \"Supplies\"),\r\n    NOT(($UserRole.Name = \"Supplies\")\r\n|| ($UserRole.Name = \"Database Administrator\") || $Permission.Transactional_Team ))",
+    "Description": null
+  },
+  {
+    "Id": "03d8e000000TNd8AAG",
+    "Entity": "Opportunity",
+    "ValidationName": "Lines_of_cusiness_cannot_be_bank",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "Populate Line of Business field.",
+    "ErrorConditionFormula": "ISBLANK(TEXT(Lines_Of_Business__c))",
+    "Description": "error if line of business blank."
+  },
+  {
+    "Id": "03dAe000003d3NhIAI",
+    "Entity": "Opportunity",
+    "ValidationName": "Subscription_Funding_Type_Validation",
+    "Active": false,
+    "ErrorDisplayField": "Funding Type",
+    "ErrorMessage": "Funding type Subscription can not be chosen in a Transactional record",
+    "ErrorConditionFormula": "AND(\r\n  RecordType.DeveloperName = \"Transactional\",\r\n  ISPICKVAL(Lines_Of_Business__c, \"Not_Allowed_Value\")\r\n)",
+    "Description": "If Opp is Transactional then Subscription can not be chosen in funding type"
+  },
+  {
+    "Id": "03dAe000003geFRIAY",
+    "Entity": "OpportunityLineItem",
+    "ValidationName": "Software_Product_Validation",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "This product cannot be added to this line of business. Please choose software items only.",
+    "ErrorConditionFormula": "AND(\r\n  ISNEW(),\r\n  OR(\r\n    AND(\r\n      ISPICKVAL(Opportunity.Lines_Of_Business__c, \"Software Licensing\"),\r\n      Product_Catagory__c \u003c\u003e \"Software Licensing\"\r\n    ),\r\n    AND(\r\n      ISPICKVAL(Opportunity.Lines_Of_Business__c, \"Cyber Security\"),\r\n      Product_Catagory__c \u003c\u003e \"Software Licensing\"\r\n    )\r\n  )\r\n)",
+    "Description": "If Opp is Line Of Business Sofware then the Product Catagory has to be the same"
+  },
+  {
+    "Id": "03dPx0000004b4DIAQ",
+    "Entity": "OpportunityLineItem",
+    "ValidationName": "Value_Greater_Than_0",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "The Value of the quantity must be more than 0",
+    "ErrorConditionFormula": "OR(Quantity = 0,Quantity \u003c 0)",
+    "Description": null
+  },
+  {
+    "Id": "03dPx0000008M09IAE",
+    "Entity": "Opportunity",
+    "ValidationName": "Account_Name_Populated",
+    "Active": true,
+    "ErrorDisplayField": "Account Name",
+    "ErrorMessage": "The Account Name field must be populated to save this opportunity.",
+    "ErrorConditionFormula": "ISBLANK( AccountId )",
+    "Description": "The account name must be populated."
+  },
+  {
+    "Id": "03dPx0000008ofZIAQ",
+    "Entity": "Opportunity",
+    "ValidationName": "Enforce_DAAS_Technical_Evaluation",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "Please complete the Technical Evaluation before proceeding with the deal.",
+    "ErrorConditionFormula": "AND(\r\n    OR(\r\n       $UserRole.Id = \"00EPx00000DrcPaMAJ\",\r\n       $UserRole.Id = \"00EPx00000DrcPZMAZ\",\r\n       $UserRole.Id = \"00EPx00000DrcPYMAZ\"\r\n    ),\r\n\r\n    RecordType.Name = \"Xeretec Sales Process\",\r\n    NOT(\r\n        OR(\r\n            ISPICKVAL(StageName, \"Open\"),\r\n            ISPICKVAL(StageName, \"Qualify \u0026 Develop\"),\r\n            ISPICKVAL(StageName, \"Technical Evaluation\"),\r\n            ISPICKVAL(StageName, \"Closed Lost\")\r\n        )\r\n    ),\r\n    OR(\r\n        ISBLANK(TEXT(Technical_Approval_Status__c)),\r\n        NOT(ISPICKVAL(Technical_Approval_Status__c, \"Approved\"))\r\n    ),\r\n    ISPICKVAL(Lines_Of_Business__c, \"Digital Workspace\"),\r\n    IF(RecordType.Id = \"0124K000000Mg7T\", TRUE, FALSE)\r\n)",
+    "Description": "Enforcing Digital Workspace Technical Evaluation"
+  },
+  {
+    "Id": "03dPx000000INpNIAW",
+    "Entity": "Opportunity",
+    "ValidationName": "Credit_Safe_must_be_checked",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "The account is not linked to Creditsafe or is missing a company number or DC trade number. Please link the account with Creditsafe.",
+    "ErrorConditionFormula": "AND(\r\nOR(\r\n$Profile.Name = \"AoC - Sales\",\r\n$Profile.Name = \"AoC - Sales RO\",\r\n$Profile.Name = \"Sales Team\",\r\n$UserRole.Name = \"Supplies\"\r\n),\r\n\r\nOR(\r\nAND( ISBLANK(Account.DC_Trade_Number__c),\r\nISBLANK(Account.comp_house__Company_Number__c)\r\n),\r\nISBLANK(Account.CS_APP__Connect_Id__c)\r\n),\r\nNOT(Account.Bypass_Creditsafe__c),\r\n    NOT(\r\n        ISPICKVAL(StageName , \"Closed Lost\")          /* moving to / already Closed Lost */\r\n        ||\r\n        ISCHANGED(Loss_Reason__c)                     /* editing Loss Reason */\r\n    )\r\n)",
+    "Description": "Stops an opportunity being created if account has not been credit safe checked or has a Company Reg/DC Trade."
+  },
+  {
+    "Id": "03dPx000000Im7pIAC",
+    "Entity": "OpportunityLineItem",
+    "ValidationName": "Quantity_Whole_Number",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "Quantity must be 1 or more",
+    "ErrorConditionFormula": "NOT(REGEX(TEXT( Quantity ), \"^\\\\d+$\"))",
+    "Description": null
+  },
+  {
+    "Id": "03dPx000000MpDZIA0",
+    "Entity": "OpportunityLineItem",
+    "ValidationName": "Closed_Won_Locked",
+    "Active": true,
+    "ErrorDisplayField": "Top of Page",
+    "ErrorMessage": "You cannot modify or delete Opportunity Products when the Opportunity is Closed Won.",
+    "ErrorConditionFormula": "AND(\r\n    ISPICKVAL(Opportunity.StageName, \"Closed Won\"),\r\n    $Profile.Name = \"AoC - Sales\"\r\n)",
+    "Description": null
+  }
+]

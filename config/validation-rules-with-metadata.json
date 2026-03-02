@@ -1,0 +1,16 @@
+{
+  "name": "MALFORMED_QUERY",
+  "message": "When retrieving results with Metadata or FullName fields, the query qualificatio​ns must specify no more than one row for retrieval. Result size: 26",
+  "exitCode": 1,
+  "context": "DataSoqlQueryCommand",
+  "data": {
+    "message": "When retrieving results with Metadata or FullName fields, the query qualificatio​ns must specify no more than one row for retrieval. Result size: 26",
+    "errorCode": "MALFORMED_QUERY"
+  },
+  "stack": "MALFORMED_QUERY: When retrieving results with Metadata or FullName fields, the query qualificatio​ns must specify no more than one row for retrieval. Result size: 26\n    at SfCommandError.from (file:///C:/Program%20Files/sf/client/node_modules/@salesforce/sf-plugins-core/lib/SfCommandError.js:48:16)\n    at DataSoqlQueryCommand.catch (file:///C:/Program%20Files/sf/client/node_modules/@salesforce/sf-plugins-core/lib/sfCommand.js:332:47)\n    at DataSoqlQueryCommand._run (C:\\Program Files\\sf\\client\\node_modules\\@oclif\\core\\lib\\command.js:186:29)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Config.runCommand (C:\\Program Files\\sf\\client\\node_modules\\@oclif\\core\\lib\\config\\config.js:456:25)\n    at async run (C:\\Program Files\\sf\\client\\node_modules\\@oclif\\core\\lib\\main.js:97:16)\n    at async file:///C:/Program%20Files/sf/client/bin/run.js:15:1",
+  "cause": "MALFORMED_QUERY: When retrieving results with Metadata or FullName fields, the query qualificatio​ns must specify no more than one row for retrieval. Result size: 26\n    at HttpApi.getError (C:\\Program Files\\sf\\client\\node_modules\\@jsforce\\jsforce-node\\lib\\http-api.js:315:15)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async C:\\Program Files\\sf\\client\\node_modules\\@jsforce\\jsforce-node\\lib\\http-api.js:127:33\n    at async Query._execute (C:\\Program Files\\sf\\client\\node_modules\\@jsforce\\jsforce-node\\lib\\query.js:373:22)\n    at async C:\\Program Files\\sf\\client\\node_modules\\@jsforce\\jsforce-node\\lib\\query.js:305:17 {\n  data: {\n    message: 'When retrieving results with Metadata or FullName fields, the query qualificatio​ns must specify no more than one row for retrieval. Result size: 26',\n    errorCode: 'MALFORMED_QUERY'\n  },\n  errorCode: 'MALFORMED_QUERY'\n}",
+  "warnings": [],
+  "code": "1",
+  "status": 1,
+  "commandName": "DataSoqlQueryCommand"
+}
