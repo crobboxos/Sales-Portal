@@ -1,0 +1,697 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.Id"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "Id",
+      "DataType": "Lookup()",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.Owner"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "OwnerId",
+      "DataType": "Lookup(User,Group)",
+      "RelationshipName": "Owner",
+      "ReferenceTo": {
+        "referenceTo": [
+          "Group",
+          "User"
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.IsDeleted"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "IsDeleted",
+      "DataType": "Checkbox",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.Name"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "Name",
+      "DataType": "Auto Number",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.CurrencyIsoCode"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "CurrencyIsoCode",
+      "DataType": "Picklist",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.CreatedDate"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "CreatedDate",
+      "DataType": "Date/Time",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.CreatedBy"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "CreatedById",
+      "DataType": "Lookup(User)",
+      "RelationshipName": "CreatedBy",
+      "ReferenceTo": {
+        "referenceTo": [
+          "User"
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.LastModifiedDate"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "LastModifiedDate",
+      "DataType": "Date/Time",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.LastModifiedBy"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "LastModifiedById",
+      "DataType": "Lookup(User)",
+      "RelationshipName": "LastModifiedBy",
+      "ReferenceTo": {
+        "referenceTo": [
+          "User"
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.SystemModstamp"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "SystemModstamp",
+      "DataType": "Date/Time",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.LastViewedDate"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "LastViewedDate",
+      "DataType": "Date/Time",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.LastReferencedDate"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "LastReferencedDate",
+      "DataType": "Date/Time",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.UserRecordAccess"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "UserRecordAccessId",
+      "DataType": "Lookup(User Record Access)",
+      "RelationshipName": "UserRecordAccess",
+      "ReferenceTo": {
+        "referenceTo": [
+          "UserRecordAccess"
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.RecordVisibility"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "RecordVisibilityId",
+      "DataType": "Lookup(Record Visibility)",
+      "RelationshipName": "RecordVisibility",
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGJ"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Address__c",
+      "DataType": "Text(128)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGK"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__City__c",
+      "DataType": "Text(128)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGL"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Comments__c",
+      "DataType": "Text Area(255)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGM"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Country__c",
+      "DataType": "Text(50)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGN"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Email__c",
+      "DataType": "Email",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGO"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__External_key__c",
+      "DataType": "Text(100)  (External ID) (Unique Case Sensitive)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGP"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__First_Name__c",
+      "DataType": "Text(64)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGQ"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Industry__c",
+      "DataType": "Text(100)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGR"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Job_Title__c",
+      "DataType": "Text(128)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGS"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Join_Url1__c",
+      "DataType": "Long Text Area(1000)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGT"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Join_Url__c",
+      "DataType": "Text Area(255)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGU"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Last_Name__c",
+      "DataType": "Text(63)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGV"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Number_of_Employees__c",
+      "DataType": "Number(18, 0)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGW"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Org__c",
+      "DataType": "Text(128)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGX"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Organization__c",
+      "DataType": "Text(255)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGY"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Phone__c",
+      "DataType": "Phone",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGZ"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__State__c",
+      "DataType": "Text(50)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGa"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Status__c",
+      "DataType": "Picklist",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGb"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Zip__c",
+      "DataType": "Text(128)",
+      "RelationshipName": null,
+      "ReferenceTo": {
+        "referenceTo": null
+      }
+    },
+    {
+      "attributes": {
+        "type": "FieldDefinition",
+        "url": "/services/data/v66.0/tooling/sobjects/FieldDefinition/01I8e000000CjAq.00N8e000000SPGc"
+      },
+      "EntityDefinition": {
+        "attributes": {
+          "type": "EntityDefinition",
+          "url": "/services/data/v66.0/tooling/sobjects/EntityDefinition/01I8e000000CjAq"
+        },
+        "QualifiedApiName": "zoom_app__Zoom_Webinar_Registrant__c"
+      },
+      "EntityDefinitionId": "01I8e000000CjAq",
+      "QualifiedApiName": "zoom_app__Zoom_Webinar__c",
+      "DataType": "Lookup(Zoom Webinar)",
+      "RelationshipName": "zoom_app__Zoom_Webinar__r",
+      "ReferenceTo": {
+        "referenceTo": [
+          "zoom_app__Zoom_Webinar__c"
+        ]
+      }
+    }
+  ],
+  "totalSize": 34,
+  "done": true
+}
