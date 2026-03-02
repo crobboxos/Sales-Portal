@@ -1,22 +1,27 @@
 {
-  "name": "frontend",
-  "version": "1.0.0",
+  "name": "sales-portal-frontend",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "next": "15.2.4",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "zod": "^3.25.42"
+    "@okta/okta-auth-js": "^7.11.0",
+    "next": "^15.5.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
-    "@types/node": "^22.15.30",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "typescript": "^5.8.3"
+    "@tailwindcss/postcss": "^4.1.12",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "eslint": "^9.34.0",
+    "eslint-config-next": "^15.5.0",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5.9.2"
   }
 }
