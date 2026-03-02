@@ -7,10 +7,11 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/auth-provider";
 
 const NAV_LINKS = [
+  { href: "/portal", label: "Software Licensing" },
   { href: "/accounts", label: "Accounts" },
   { href: "/deals", label: "Deals (Opportunities)" },
   { href: "/quotes", label: "Quotes" },
-  { href: "/leads", label: "Leads" },
+  { href: "/leads", label: "Leads" }
 ];
 
 function classNames(...classes: Array<string | false | undefined>) {
@@ -36,16 +37,19 @@ export function AppShell({ children }: { children: ReactNode }) {
       <aside
         className={classNames(
           "fixed inset-y-0 left-0 z-40 w-72 border-r border-slate-200 bg-white/90 p-4 backdrop-blur transition-transform md:static md:translate-x-0",
-          open ? "translate-x-0" : "-translate-x-full",
+          open ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="mb-8 mt-12 md:mt-0">
-          <p className="text-xs uppercase tracking-widest text-slate-500">Sales Management</p>
+          <p className="text-xs uppercase tracking-widest text-slate-500">
+            Sales Management
+          </p>
           <h1 className="mt-1 text-xl font-semibold text-slate-900">Portal</h1>
         </div>
         <nav className="space-y-2">
           {NAV_LINKS.map((link) => {
-            const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+            const active =
+              pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
               <Link
                 key={link.href}
@@ -53,7 +57,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                 onClick={() => setOpen(false)}
                 className={classNames(
                   "block rounded-md px-3 py-2 text-sm font-medium transition",
-                  active ? "bg-brand-50 text-brand-700" : "text-slate-600 hover:bg-slate-100",
+                  active
+                    ? "bg-brand-50 text-brand-700"
+                    : "text-slate-600 hover:bg-slate-100"
                 )}
               >
                 {link.label}
@@ -63,7 +69,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
       </aside>
 
-      {open ? <div className="fixed inset-0 z-30 bg-slate-900/20 md:hidden" onClick={() => setOpen(false)} /> : null}
+      {open ? (
+        <div
+          className="fixed inset-0 z-30 bg-slate-900/20 md:hidden"
+          onClick={() => setOpen(false)}
+        />
+      ) : null}
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/80 backdrop-blur">
@@ -83,7 +94,9 @@ export function AppShell({ children }: { children: ReactNode }) {
               </button>
               {showUserMenu ? (
                 <div className="absolute right-0 mt-2 w-56 rounded-md border border-slate-200 bg-white p-2 shadow-lg">
-                  <p className="px-2 py-1 text-xs text-slate-500">{user?.email || "No email claim"}</p>
+                  <p className="px-2 py-1 text-xs text-slate-500">
+                    {user?.email || "No email claim"}
+                  </p>
                   <button
                     type="button"
                     onClick={() => {
