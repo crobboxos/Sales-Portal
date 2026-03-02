@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import subprocess
@@ -12,6 +13,7 @@ from xml.sax.saxutils import escape as xml_escape
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_DIR = ROOT / "config"
 TARGET_ORG = "xeretec-sandfull01"
+API_VERSION = "66.0"
 SF_CLI = shutil.which("sf.cmd") or shutil.which("sf") or r"C:\Program Files\sf\bin\sf.cmd"
 
 
@@ -236,9 +238,20 @@ def write_package_xml(flow_names: list[str], api_version: str) -> Path:
 
 
 def main() -> None:
+    global TARGET_ORG
+    global API_VERSION
+
+    parser = argparse.ArgumentParser(description="Map active Salesforce Flow metadata.")
+    parser.add_argument("--target-org", default=TARGET_ORG, help="Salesforce org alias or username.")
+    parser.add_argument("--api-version", default=API_VERSION, help="API version used in generated package.xml.")
+    args = parser.parse_args()
+
+    TARGET_ORG = args.target_org
+    API_VERSION = args.api_version
+
     CONFIG_DIR.mkdir(parents=True, exist_ok=True)
 
-    print("Querying active flow list...")
+    print(f"Querying active flow list from target org: {TARGET_ORG}")
     active_flows = run_sf_query(
         "SELECT Id, Definition.DeveloperName, ProcessType, Status, VersionNumber "
         "FROM Flow WHERE Status = 'Active' ORDER BY Definition.DeveloperName"
@@ -351,7 +364,7 @@ def main() -> None:
 
     package_xml = write_package_xml(
         sorted({r["flow_developer_name"] for r in summary_rows}),
-        api_version="66.0",
+        api_version=API_VERSION,
     )
 
     stats = {
