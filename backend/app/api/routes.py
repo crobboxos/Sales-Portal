@@ -11,6 +11,9 @@ from app.models.schemas import (
     HealthResponse,
     LeadDetail,
     LeadSummary,
+    ParentMacdAddOptionsResponse,
+    ParentMacdAddRequest,
+    ParentMacdAddResult,
     OpportunityCreateRequest,
     OpportunityDetail,
     OpportunityPatchRequest,
@@ -110,6 +113,25 @@ async def patch_opportunity(
     service: Annotated[PortalDataService, Depends(get_portal_data_service)],
 ) -> OpportunityDetail:
     return await service.update_opportunity(opportunity_id, updates)
+
+
+@router.get("/opportunities/{opportunity_id}/parent-macd-add/options", response_model=ParentMacdAddOptionsResponse)
+async def get_parent_macd_add_options(
+    opportunity_id: str,
+    _: Annotated[UserPrincipal, Depends(read_access)],
+    service: Annotated[PortalDataService, Depends(get_portal_data_service)],
+) -> ParentMacdAddOptionsResponse:
+    return await service.get_parent_macd_add_options(opportunity_id)
+
+
+@router.post("/opportunities/{opportunity_id}/parent-macd-add", response_model=ParentMacdAddResult)
+async def run_parent_macd_add(
+    opportunity_id: str,
+    payload: ParentMacdAddRequest,
+    _: Annotated[UserPrincipal, Depends(write_access)],
+    service: Annotated[PortalDataService, Depends(get_portal_data_service)],
+) -> ParentMacdAddResult:
+    return await service.run_parent_macd_add(opportunity_id, payload)
 
 
 @router.get("/quotes", response_model=PageResponse[QuoteSummary])

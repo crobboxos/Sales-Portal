@@ -109,6 +109,12 @@ class SalesforceService:
             raise SalesforceAPIError("Salesforce create response missing record ID.")
         return record_id
 
+    async def build_flow_launch_url(self, flow_api_name: str, params: dict[str, str] | None = None) -> str:
+        token = await self.get_access_token()
+        query_string = urlencode(params or {})
+        base_url = f"{token.instance_url.rstrip('/')}/flow/{flow_api_name}"
+        return f"{base_url}?{query_string}" if query_string else base_url
+
     @staticmethod
     def build_accounts_soql(search: str, page_size: int, offset: int) -> str:
         sanitized_search = search.replace("'", "\\'")

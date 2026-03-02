@@ -47,6 +47,67 @@ class OpportunitySummary(PortalBaseModel):
 class OpportunityDetail(OpportunitySummary):
     next_step: str | None = Field(default=None, alias="nextStep")
     description: str | None = None
+    parent_macd_add_url: str | None = Field(default=None, alias="parentMacdAddUrl")
+
+
+class ParentMacdAddOption(PortalBaseModel):
+    id: str
+    name: str
+
+
+class ParentMacdAddProductOption(ParentMacdAddOption):
+    product_code: str | None = Field(default=None, alias="productCode")
+
+
+class ParentMacdAddOptionsResponse(PortalBaseModel):
+    opportunity_id: str = Field(alias="opportunityId")
+    opportunity_name: str = Field(alias="opportunityName")
+    currency_iso_code: str = Field(alias="currencyIsoCode")
+    process_url: str | None = Field(default=None, alias="processUrl")
+    product_types: list[str] = Field(alias="productTypes")
+    products: list[ParentMacdAddProductOption]
+    locations: list[ParentMacdAddOption]
+    contacts: list[ParentMacdAddOption]
+
+
+class ParentMacdAddLineRequest(PortalBaseModel):
+    site_account_id: str | None = Field(default=None, alias="siteAccountId")
+    condition: str
+    quantity: float
+    unit_price: float = Field(alias="unitPrice")
+    sales_cost: float = Field(alias="salesCost")
+    delivery_date: date | None = Field(default=None, alias="deliveryDate")
+    deliver_to_contact_id: str | None = Field(default=None, alias="deliverToContactId")
+    supplier_id: str | None = Field(default=None, alias="supplierId")
+
+    @model_validator(mode="after")
+    def validate_line(self) -> "ParentMacdAddLineRequest":
+        if self.quantity <= 0:
+            raise ValueError("Quantity must be greater than zero.")
+        if not self.condition.strip():
+            raise ValueError("Condition is required.")
+        return self
+
+
+class ParentMacdAddRequest(PortalBaseModel):
+    product_type: str = Field(alias="productType")
+    product_id: str = Field(alias="productId")
+    lines: list[ParentMacdAddLineRequest]
+
+    @model_validator(mode="after")
+    def validate_payload(self) -> "ParentMacdAddRequest":
+        if not self.product_type.strip():
+            raise ValueError("Product type is required.")
+        if not self.product_id.strip():
+            raise ValueError("Product is required.")
+        if not self.lines:
+            raise ValueError("At least one line is required.")
+        return self
+
+
+class ParentMacdAddResult(PortalBaseModel):
+    created_line_item_ids: list[str] = Field(alias="createdLineItemIds")
+    created_count: int = Field(alias="createdCount")
 
 
 class OpportunityPatchRequest(PortalBaseModel):

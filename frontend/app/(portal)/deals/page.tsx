@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/components/auth-provider";
+import { ParentMacdAddModal } from "@/components/parent-macd-add-modal";
 import { Pagination } from "@/components/pagination";
 import { apiJson, ApiError } from "@/lib/api";
 import { formatCurrency, formatDate } from "@/lib/format";
@@ -12,6 +13,17 @@ import { Opportunity, OpportunityCreateRequest, PageResponse } from "@/lib/types
 
 const PAGE_SIZE = 10;
 const WRITE_GROUPS = ["SalesPortal_Admin", "SalesPortal_Sales"];
+
+type CreateDealSuccess = {
+  dealId: string;
+  dealName: string;
+};
+
+type ParentMacdModalState = {
+  isOpen: boolean;
+  opportunityId: string | null;
+  opportunityName: string | null;
+};
 
 function getDefaultCloseDate(): string {
   const now = new Date();
@@ -44,6 +56,14 @@ export default function DealsPage() {
   const [newDealDescription, setNewDealDescription] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
+  const [createSuccess, setCreateSuccess] = useState<CreateDealSuccess | null>(null);
+  const [processLaunchError, setProcessLaunchError] = useState<string | null>(null);
+  const [isOpeningProcess, setIsOpeningProcess] = useState(false);
+  const [macdModal, setMacdModal] = useState<ParentMacdModalState>({
+    isOpen: false,
+    opportunityId: null,
+    opportunityName: null,
+  });
 
   const canWrite = hasAnyGroup(WRITE_GROUPS);
 
@@ -87,9 +107,6 @@ export default function DealsPage() {
   };
 
   const openCreateModal = () => {
-    if (!canWrite) {
-      return;
-    }
     setNewDealName("");
     setNewDealStageName("Qualification");
     setNewDealCloseDate(getDefaultCloseDate());
@@ -153,8 +170,10 @@ export default function DealsPage() {
 
     setIsCreating(true);
     setCreateError(null);
+    setCreateSuccess(null);
+    setProcessLaunchError(null);
     try {
-      await apiJson<Opportunity>("/api/opportunities", accessToken, {
+      const created = await apiJson<Opportunity>("/api/opportunities", accessToken, {
         method: "POST",
         body: JSON.stringify(payload),
       });
@@ -167,11 +186,41 @@ export default function DealsPage() {
       setNewDealDescription("");
       setPage(1);
       setRefreshKey((previous) => previous + 1);
+      setCreateSuccess({
+        dealId: created.id,
+        dealName: created.name,
+      });
     } catch (requestError) {
       const message = requestError instanceof ApiError ? requestError.message : "Failed to create deal.";
       setCreateError(message);
     } finally {
       setIsCreating(false);
+    }
+  };
+
+  const openStandardParentMacdProcess = async (dealId: string, dealName: string) => {
+    if (!accessToken) {
+      return;
+    }
+
+    setIsOpeningProcess(true);
+    setProcessLaunchError(null);
+    try {
+      const detail = await apiJson<Opportunity>(`/api/opportunities/${dealId}`, accessToken);
+      if (detail.parentMacdAddUrl) {
+        window.open(detail.parentMacdAddUrl, "_blank", "noopener,noreferrer");
+        return;
+      }
+      setMacdModal({
+        isOpen: true,
+        opportunityId: dealId,
+        opportunityName: dealName,
+      });
+    } catch (requestError) {
+      const message = requestError instanceof ApiError ? requestError.message : "Failed to open Parent MACD process.";
+      setProcessLaunchError(message);
+    } finally {
+      setIsOpeningProcess(false);
     }
   };
 
@@ -183,8 +232,7 @@ export default function DealsPage() {
           <button
             type="button"
             onClick={openCreateModal}
-            disabled={!canWrite}
-            className="rounded-md bg-brand-700 px-4 py-2 text-sm font-medium text-white hover:bg-brand-900 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-md bg-brand-700 px-4 py-2 text-sm font-medium text-white hover:bg-brand-900"
           >
             New Deal
           </button>
@@ -213,6 +261,58 @@ export default function DealsPage() {
           </button>
         </form>
       </div>
+
+      {createSuccess ? (
+        <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+          <p>
+            Deal <span className="font-semibold">{createSuccess.dealName}</span> was created.
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => router.push(`/deals/${createSuccess.dealId}`)}
+              className="rounded-md border border-emerald-600 px-3 py-1.5 text-xs font-medium text-emerald-700 hover:bg-emerald-100"
+            >
+              Open Deal
+            </button>
+            {canWrite ? (
+              <button
+                type="button"
+                onClick={() => void openStandardParentMacdProcess(createSuccess.dealId, createSuccess.dealName)}
+                disabled={isOpeningProcess}
+                className="rounded-md bg-emerald-700 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-800"
+              >
+                {isOpeningProcess ? "Opening..." : "Open Parent MACD Add Process"}
+              </button>
+            ) : (
+              <span className="text-xs text-amber-700">Read-only role: Parent MACD Add requires write access.</span>
+            )}
+            {canWrite ? (
+              <button
+                type="button"
+                onClick={() =>
+                  setMacdModal({
+                    isOpen: true,
+                    opportunityId: createSuccess.dealId,
+                    opportunityName: createSuccess.dealName,
+                  })
+                }
+                className="rounded-md border border-emerald-300 px-3 py-1.5 text-xs font-medium text-emerald-700 hover:bg-emerald-100"
+              >
+                Native Quick Add
+              </button>
+            ) : null}
+            <button
+              type="button"
+              onClick={() => setCreateSuccess(null)}
+              className="rounded-md border border-emerald-300 px-3 py-1.5 text-xs font-medium text-emerald-700 hover:bg-emerald-100"
+            >
+              Dismiss
+            </button>
+          </div>
+          {processLaunchError ? <p className="mt-2 text-xs text-red-700">{processLaunchError}</p> : null}
+        </div>
+      ) : null}
 
       <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <div className="overflow-x-auto">
@@ -360,6 +460,15 @@ export default function DealsPage() {
           </div>
         </div>
       ) : null}
+
+      <ParentMacdAddModal
+        isOpen={macdModal.isOpen}
+        opportunityId={macdModal.opportunityId}
+        opportunityName={macdModal.opportunityName || undefined}
+        accessToken={accessToken}
+        canWrite={canWrite}
+        onClose={() => setMacdModal((current) => ({ ...current, isOpen: false }))}
+      />
     </section>
   );
 }

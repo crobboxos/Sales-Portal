@@ -5,6 +5,7 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 
 import { useAuth } from "@/components/auth-provider";
+import { ParentMacdAddModal } from "@/components/parent-macd-add-modal";
 import { apiJson, ApiError } from "@/lib/api";
 import { formatCurrency, formatDate } from "@/lib/format";
 import { Opportunity, OpportunityPatchRequest } from "@/lib/types";
@@ -24,8 +25,16 @@ export default function DealDetailPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [isMacdModalOpen, setIsMacdModalOpen] = useState(false);
 
   const canWrite = useMemo(() => hasAnyGroup(WRITE_GROUPS), [hasAnyGroup]);
+
+  const openStandardParentMacdProcess = () => {
+    if (!opportunity?.parentMacdAddUrl) {
+      return;
+    }
+    window.open(opportunity.parentMacdAddUrl, "_blank", "noopener,noreferrer");
+  };
 
   useEffect(() => {
     if (!accessToken || !params.id) {
@@ -110,6 +119,26 @@ export default function DealDetailPage() {
             <div className="mb-6">
               <h2 className="text-2xl font-semibold text-slate-900">{opportunity.name}</h2>
               <p className="mt-1 text-sm text-slate-600">Opportunity ID: {opportunity.id}</p>
+              {canWrite ? (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {opportunity.parentMacdAddUrl ? (
+                    <button
+                      type="button"
+                      onClick={openStandardParentMacdProcess}
+                      className="inline-flex rounded-md bg-brand-700 px-4 py-2 text-xs font-medium text-white hover:bg-brand-900"
+                    >
+                      Open Parent MACD Add Process
+                    </button>
+                  ) : null}
+                  <button
+                    type="button"
+                    onClick={() => setIsMacdModalOpen(true)}
+                    className="inline-flex rounded-md border border-slate-300 bg-white px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50"
+                  >
+                    Native Quick Add
+                  </button>
+                </div>
+              ) : null}
             </div>
 
             <dl className="mb-6 grid gap-4 sm:grid-cols-2">
@@ -182,6 +211,15 @@ export default function DealDetailPage() {
           </>
         ) : null}
       </div>
+
+      <ParentMacdAddModal
+        isOpen={isMacdModalOpen}
+        opportunityId={opportunity?.id ?? null}
+        opportunityName={opportunity?.name}
+        accessToken={accessToken}
+        canWrite={canWrite}
+        onClose={() => setIsMacdModalOpen(false)}
+      />
     </section>
   );
 }

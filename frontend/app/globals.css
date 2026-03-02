@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-50: #eef5ff;
+  --color-brand-100: #d8e6ff;
+  --color-brand-500: #2563eb;
+  --color-brand-700: #1d4ed8;
+  --color-brand-900: #1e3a8a;
+}
+
 :root {
   --surface: #f6f8fb;
   --surface-strong: #ffffff;

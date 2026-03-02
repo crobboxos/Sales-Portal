@@ -28,6 +28,49 @@ export interface Opportunity {
   lastModified: string;
   nextStep?: string | null;
   description?: string | null;
+  parentMacdAddUrl?: string | null;
+}
+
+export interface ParentMacdAddOption {
+  id: string;
+  name: string;
+}
+
+export interface ParentMacdAddProductOption extends ParentMacdAddOption {
+  productCode?: string | null;
+}
+
+export interface ParentMacdAddOptionsResponse {
+  opportunityId: string;
+  opportunityName: string;
+  currencyIsoCode: string;
+  processUrl?: string | null;
+  productTypes: string[];
+  products: ParentMacdAddProductOption[];
+  locations: ParentMacdAddOption[];
+  contacts: ParentMacdAddOption[];
+}
+
+export interface ParentMacdAddLineRequest {
+  siteAccountId?: string | null;
+  condition: string;
+  quantity: number;
+  unitPrice: number;
+  salesCost: number;
+  deliveryDate?: string | null;
+  deliverToContactId?: string | null;
+  supplierId?: string | null;
+}
+
+export interface ParentMacdAddRequest {
+  productType: string;
+  productId: string;
+  lines: ParentMacdAddLineRequest[];
+}
+
+export interface ParentMacdAddResult {
+  createdLineItemIds: string[];
+  createdCount: number;
 }
 
 export interface OpportunityPatchRequest {
