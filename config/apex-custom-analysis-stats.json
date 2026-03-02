@@ -1,0 +1,92 @@
+{
+  "generated_utc": "2026-03-02 14:27:22 UTC",
+  "scope": {
+    "custom_classes": 62,
+    "custom_triggers": 11
+  },
+  "findings": {
+    "test_classes": 28,
+    "artifacts_with_callout_indicators": 8,
+    "rest_exposed_classes": 1,
+    "invocable_classes": 9,
+    "touchpoint_rows": 35,
+    "external_candidate_touchpoint_rows": 10
+  },
+  "top_ranked": [
+    {
+      "artifact_type": "Class",
+      "name": "CalloutHelper",
+      "integration_score": 151
+    },
+    {
+      "artifact_type": "Class",
+      "name": "VantageApiInvoiceQuery",
+      "integration_score": 121
+    },
+    {
+      "artifact_type": "Class",
+      "name": "VantageApiInvoiceLinesQuery",
+      "integration_score": 121
+    },
+    {
+      "artifact_type": "Trigger",
+      "name": "OppSyncTrigger",
+      "integration_score": 111
+    },
+    {
+      "artifact_type": "Trigger",
+      "name": "OppLineSyncTrigger",
+      "integration_score": 107
+    },
+    {
+      "artifact_type": "Class",
+      "name": "TPSChecker",
+      "integration_score": 100
+    },
+    {
+      "artifact_type": "Class",
+      "name": "TPSCallout",
+      "integration_score": 100
+    },
+    {
+      "artifact_type": "Trigger",
+      "name": "dlrs_OpportunityTrigger",
+      "integration_score": 99
+    },
+    {
+      "artifact_type": "Class",
+      "name": "PortalCertiniaReceiptApi",
+      "integration_score": 98
+    },
+    {
+      "artifact_type": "Class",
+      "name": "HP_API_AccountService",
+      "integration_score": 98
+    },
+    {
+      "artifact_type": "Class",
+      "name": "HPAuthService",
+      "integration_score": 92
+    },
+    {
+      "artifact_type": "Trigger",
+      "name": "dlrs_OpportunityLineItemTrigger",
+      "integration_score": 89
+    },
+    {
+      "artifact_type": "Trigger",
+      "name": "dlrs_AccountTrigger",
+      "integration_score": 84
+    },
+    {
+      "artifact_type": "Trigger",
+      "name": "QuoteLineSyncTrigger",
+      "integration_score": 84
+    },
+    {
+      "artifact_type": "Trigger",
+      "name": "QuoteSyncTrigger",
+      "integration_score": 74
+    }
+  ]
+}

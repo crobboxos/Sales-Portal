@@ -1,0 +1,36 @@
+artifact_type,name,touchpoint_type,touchpoint_detail,external_candidate
+Class,AgxPayableInvoiceHold,FlowInvocable,@InvocableMethod,N
+Class,AgxPayableInvoiceRelease,FlowInvocable,@InvocableMethod,N
+Class,BusinessHoursCalculator,FlowInvocable,@InvocableMethod,N
+Class,CalloutHelper,FlowInvocable,@InvocableMethod,N
+Class,CalloutHelper,HttpCalloutLogic,HTTP/callout-related code detected,Y
+Class,DiscardInvoices,FlowInvocable,@InvocableMethod,N
+Class,GenericObjectOperationBatch,AsyncPattern,Database.Batchable,N
+Class,GenericObjectOperationBatchLauncher,FlowInvocable,@InvocableMethod,N
+Class,GenericObjectOperationBatchLauncher,AsyncPattern,Database.executeBatch,N
+Class,GenericObjectOperationBatchTest,AsyncPattern,Database.executeBatch,N
+Class,HP_API_AccountService,HttpCalloutLogic,HTTP/callout-related code detected,Y
+Class,HP_API_AccountService,HttpCalloutEndpoint,https://hp-bss.eu.interworks.cloud/api/accounts?pageIndex=1&pageSize=500,Y
+Class,HPAuthService,HttpCalloutLogic,HTTP/callout-related code detected,Y
+Class,PortalCertiniaReceiptApi,InboundREST,/portal/certinia/receipt-po,Y
+Class,ResolveApprovalRequest,FlowInvocable,@InvocableMethod,N
+Class,TPSCallout,HttpCalloutLogic,HTTP/callout-related code detected,Y
+Class,TPSCallout,AsyncPattern,Database.Batchable,N
+Class,TPSCalloutTest,HttpCalloutLogic,HTTP/callout-related code detected,Y
+Class,TPSCalloutTest,AsyncPattern,Database.executeBatch,N
+Class,TPSChecker,HttpCalloutLogic,HTTP/callout-related code detected,Y
+Class,TPSChecker,AsyncPattern,Database.Batchable,N
+Class,TPSCheckerScheduler,AsyncPattern,Schedulable,N
+Class,TPSCheckerScheduler,AsyncPattern,Database.executeBatch,N
+Class,TPSCheckerSchedulerTest,AsyncPattern,System.schedule,N
+Class,TPSCheckerTest,AsyncPattern,Database.executeBatch,N
+Class,VantageApiInvoiceLinesQuery,FlowInvocable,@InvocableMethod,N
+Class,VantageApiInvoiceLinesQuery,HttpCalloutLogic,HTTP/callout-related code detected,Y
+Class,VantageApiInvoiceQuery,FlowInvocable,@InvocableMethod,N
+Class,VantageApiInvoiceQuery,HttpCalloutLogic,HTTP/callout-related code detected,Y
+Trigger,DisableFeedCommentDeletes,TriggerHandler,DisableChatterDeleteDelegate,N
+Trigger,DisableFeedPostDeletes,TriggerHandler,DisableChatterDeleteDelegate,N
+Trigger,OppLineSyncTrigger,TriggerHandler,QuoteSyncUtil;TriggerStopper,N
+Trigger,OppSyncTrigger,TriggerHandler,QuoteSyncUtil;TriggerStopper,N
+Trigger,QuoteLineSyncTrigger,TriggerHandler,QuoteSyncUtil;TriggerStopper,N
+Trigger,QuoteSyncTrigger,TriggerHandler,QuoteSyncUtil;TriggerStopper,N

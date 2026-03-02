@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>myRule_7_A1</name>
+        <label>Update Supplier Site</label>
+        <locationX>50</locationX>
+        <locationY>1331</locationY>
+        <actionName>fferpcore__MessagingActionDeliverNow</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>myRule_7_A2</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>recordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>publicationIdentifier</name>
+            <value>
+                <stringValue>Supplier Account - Account</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>fferpcore__MessagingActionDeliverNow</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <actionCalls>
+        <name>myRule_7_A2</name>
+        <label>Update Vendor Contact</label>
+        <locationX>50</locationX>
+        <locationY>1439</locationY>
+        <actionName>fferpcore__MessagingActionDeliverNow</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>recordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>publicationIdentifier</name>
+            <value>
+                <stringValue>Supplier Contact - Account</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>fferpcore__MessagingActionDeliverNow</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>myRule_1</name>
+        <label>Update Tax Code (Foundations)</label>
+        <locationX>248</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>myRule_3</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Update Tax Code (Foundations)</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_myRule_1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_TRUE_myRule_1</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_1_A1</targetReference>
+            </connector>
+            <label>TRUE_Update Tax Code (Foundations)</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_3</name>
+        <label>Remove Tax Code (Foundations)</label>
+        <locationX>248</locationX>
+        <locationY>623</locationY>
+        <defaultConnector>
+            <targetReference>myRule_5</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Remove Tax Code (Foundations)</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_myRule_3</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_TRUE_myRule_3</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_3_A1</targetReference>
+            </connector>
+            <label>TRUE_Remove Tax Code (Foundations)</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_5</name>
+        <label>Update Vendor Contact</label>
+        <locationX>248</locationX>
+        <locationY>923</locationY>
+        <defaultConnector>
+            <targetReference>myRule_7</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Update Vendor Contact</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_myRule_5</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.FFX_SMCisFinanceContact__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.c2g__CODAFinanceContact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_5_A1</targetReference>
+            </connector>
+            <label>TRUE_Update Vendor Contact</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_7</name>
+        <label>Is Vendor?</label>
+        <locationX>248</locationX>
+        <locationY>1223</locationY>
+        <defaultConnector>
+            <targetReference>myRule_9</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Is Vendor?</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_myRule_7</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.c2g__CODAAccountsPayableControl__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SCMC__Active__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Supplier</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_7_A1</targetReference>
+            </connector>
+            <label>TRUE_Is Vendor?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_9</name>
+        <label>Update Finance Contact</label>
+        <locationX>446</locationX>
+        <locationY>1331</locationY>
+        <defaultConnectorLabel>FALSE_Update Finance Contact</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_myRule_9</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.c2g__CODAFinanceContact__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.msg_link_SMSASC_id__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.FFX_SMCisFinanceContact__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_9_A1</targetReference>
+            </connector>
+            <label>TRUE_Update Finance Contact</label>
+        </rules>
+    </decisions>
+    <description>Migrated from the SM Account &gt; Supplier Site PB process using multiple criteria.
+Manages SCM Supplier Site from Vendor/Supplier Changes on SF Account</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>formula_TRUE_myRule_1</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+AND(
+ISCHANGED({!$Record.c2g__CODAInputVATCode__c}),
+NOT(ISBLANK({!$Record.c2g__CODAInputVATCode__c}))),
+AND(
+ISNEW(),
+NOT(ISBLANK({!$Record.c2g__CODAInputVATCode__c}))),
+AND(
+NOT(ISBLANK({!$Record.c2g__CODAInputVATCode__c})),
+ISBLANK({!$Record.FFX_InputTaxCodeFDN__c})) 
+)</expression>
+    </formulas>
+    <formulas>
+        <name>formula_TRUE_myRule_3</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+ISBLANK({!$Record.c2g__CODAInputVATCode__c}),
+NOT(ISBLANK({!$Record.FFX_InputTaxCodeFDN__c}))
+)</expression>
+    </formulas>
+    <label>SM Account &gt; Supplier Site PB</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>myRule_1_A1</name>
+        <label>Update Input Tax Code (Foundations)</label>
+        <locationX>116</locationX>
+        <locationY>431</locationY>
+        <connector>
+            <targetReference>myRule_3</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>FFX_InputTaxCodeFDN__c</field>
+            <value>
+                <elementReference>$Record.c2g__CODAInputVATCode__r.msg_link_erptax_id__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>myRule_3_A1</name>
+        <label>Remove Input Tax Code (Foundations)</label>
+        <locationX>116</locationX>
+        <locationY>731</locationY>
+        <connector>
+            <targetReference>myRule_5</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>FFX_InputTaxCodeFDN__c</field>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>myRule_5_A1</name>
+        <label>Update Vendor Contact</label>
+        <locationX>116</locationX>
+        <locationY>1031</locationY>
+        <connector>
+            <targetReference>myRule_7</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>msg_link_SMSASC_id__c</field>
+            <value>
+                <elementReference>$Record.c2g__CODAFinanceContact__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>myRule_9_A1</name>
+        <label>Update Finance Contact</label>
+        <locationX>314</locationX>
+        <locationY>1439</locationY>
+        <inputAssignments>
+            <field>c2g__CODAFinanceContact__c</field>
+            <value>
+                <elementReference>$Record.msg_link_SMSASC_id__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>122</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>myRule_1</targetReference>
+        </connector>
+        <object>Account</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

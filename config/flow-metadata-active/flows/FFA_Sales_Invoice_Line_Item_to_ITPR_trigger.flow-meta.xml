@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Add Get ITPR Line to ITPR_Collection</description>
+        <name>Add_Get_ITPR_Line_to_ITPR_Collection</name>
+        <label>Add Get ITPR Line to ITPR_Collection</label>
+        <locationX>374</locationX>
+        <locationY>816</locationY>
+        <assignmentItems>
+            <assignToReference>ITPR_Collection</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_ITPRs</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_ITPRs</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Update Export Status to New in Get ITPR Line</description>
+        <name>Update_Export_Status_to_New_in_Get_ITPR_Line</name>
+        <label>Update Export Status to New in Get ITPR Line</label>
+        <locationX>374</locationX>
+        <locationY>708</locationY>
+        <assignmentItems>
+            <assignToReference>Loop_ITPRs.SCMC__Export_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Add_Get_ITPR_Line_to_ITPR_Collection</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Determine Sales Order Line Item Record Type for Item or others</description>
+        <name>Item_Record_Type</name>
+        <label>Item Record Type</label>
+        <locationX>418</locationX>
+        <locationY>384</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Item</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Sales_Order_Line_Item.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Item</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_ITPR_from_SOLI</targetReference>
+            </connector>
+            <label>Item</label>
+        </rules>
+    </decisions>
+    <description>Trigger Sales Invoice Line Item to ITPR update</description>
+    <environments>Default</environments>
+    <interviewLabel>FFA Sales Invoice Line Item to ITPR trigger {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>FFA Sales Invoice Line Item to ITPR trigger</label>
+    <loops>
+        <description>Loop ITPRs to update its Export Status</description>
+        <name>Loop_ITPRs</name>
+        <label>Loop ITPRs</label>
+        <locationX>286</locationX>
+        <locationY>600</locationY>
+        <collectionReference>Get_ITPR_from_SOLI</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Update_Export_Status_to_New_in_Get_ITPR_Line</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Get_ITPRs_with_ITPR_Collection</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get Inventory Transaction Perpetual Record from Sales Order Line Item</description>
+        <name>Get_ITPR_from_SOLI</name>
+        <label>Get ITPR from SOLI</label>
+        <locationX>286</locationX>
+        <locationY>492</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_ITPRs</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SCMC__Sales_Order_Line_Item__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Sales_Order_Line_Item.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>SCMC__Inventory_Transactions__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Issue Customer Items Pick-list</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SCMC__Export_Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Export Delayed</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>SCMC__Inventory_Transaction_Perpetual_Record__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Get Sales Order Line Item from SCM Invoice Line</description>
+        <name>Get_Sales_Order_Line_Item</name>
+        <label>Get Sales Order Line Item</label>
+        <locationX>418</locationX>
+        <locationY>276</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Item_Record_Type</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.SCMFFA__SCM_Invoice_Line__r.SCMC__Sales_Order_Line_Item__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>SCMC__Sales_Order_Line_Item__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update Get ITPRs with ITPR Collection</description>
+        <name>Update_Get_ITPRs_with_ITPR_Collection</name>
+        <label>Update Get ITPRs with ITPR Collection</label>
+        <locationX>286</locationX>
+        <locationY>1008</locationY>
+        <inputReference>ITPR_Collection</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SCMFFA__SCM_Invoice_Line__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>c2g__codaInvoiceLineItem__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <scheduledPaths>
+            <name>X1_minute_delay</name>
+            <connector>
+                <targetReference>Get_Sales_Order_Line_Item</targetReference>
+            </connector>
+            <label>1 minute delay</label>
+            <maxBatchSize>50</maxBatchSize>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Minutes</offsetUnit>
+            <timeSource>RecordTriggerEvent</timeSource>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>ITPR Collection for assignment</description>
+        <name>ITPR_Collection</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>SCMC__Inventory_Transaction_Perpetual_Record__c</objectType>
+    </variables>
+</Flow>

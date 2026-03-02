@@ -1,0 +1,236 @@
+rank,flow_developer_name,score,process_type,version_number,trigger_object,trigger_type,entry_criteria_summary,decision_count,action_call_count,record_create_count,record_update_count,record_delete_count,record_lookup_count,external_candidate_touchpoint_count
+1,FFX_SM_Product_Product_Group_PB,441,Workflow,2,Product2,onAllChanges,myVariable_current.IsActive EqualTo True; myVariable_current.c2g__CODAPurchaseAnalysisAccount__c IsNull False; myVariable_current.ION_Is_Stock_Item__c EqualTo True; myVariable_current.link_OPIProdGrp_Id__r.Id IsNull True,6,4,0,2,0,0,4
+2,Vantage_Invoices,334,AutoLaunchedFlow,4,,,Get_Vantage_Invoices IsNull False,1,3,2,0,1,2,3
+3,Compliance_Approval_Flow,294,AutoLaunchedFlow,19,Opportunity,,orderCreationInput EqualTo Create,5,5,3,3,0,6,2
+4,Reject_Opp,284,AutoLaunchedFlow,2,Opportunity,,decision EqualTo Reject,2,5,2,0,0,3,2
+5,SM_Account_Supplier_Site_PB,236,AutoLaunchedFlow,4,Account,RecordAfterSave,formula_TRUE_myRule_1 EqualTo True,5,2,0,4,0,0,2
+6,Demo_Run_Decision_Action,221,Flow,2,,,Loop_over_trees.treeId EqualTo Default_decision_tree,0,0,0,0,0,0,2
+7,All_Companies_House_Check,221,Flow,3,,,AccountName NotEqualTo; BillingCity NotEqualTo; BillingCountry NotEqualTo; BillingPostalCode NotEqualTo,3,2,0,2,0,2,2
+8,Technical_Evaluation,161,Flow,11,Opportunity,,decision EqualTo Approve,18,2,4,3,0,5,1
+9,ION_CreateSalesOrder_PB,151,Workflow,1,Opportunity,onAllChanges,myVariable_old IsNull False; myVariable_old.IWM_Sales_Order_Type__c NotEqualTo myVariable_current.IWM_Sales_Order_Type__c,3,2,0,0,0,0,1
+10,Opportunity_Compliance_Calculation,147,AutoLaunchedFlow,5,Opportunity,RecordAfterSave,(and) Approval_Status__c EqualTo Approved,0,1,0,1,0,2,1
+11,Call_Foundations_Billing_PB,144,Workflow,1,SCMC__Invoicing__c,onAllChanges,myVariable_old IsNull False; myVariable_old.ION_Bill_To_FFA__c NotEqualTo myVariable_current.ION_Bill_To_FFA__c,2,1,0,0,0,0,1
+12,ION_CreateSalesOrder_PB_2,141,AutoLaunchedFlow,5,Opportunity,RecordAfterSave,(and) StageName EqualTo Closed Won; IWM_Sales_Order_Req__c EqualTo true; link_Opp2SO_State__c NotEqualTo Ok,2,1,0,1,0,1,1
+13,Agilyx_Purchase_Order_Trigger_to_Release_Payable_Invoice,137,AutoLaunchedFlow,1,SCMC__Purchase_Order__c,RecordAfterSave,(and) SCMC__Status__c EqualTo Closed,2,1,0,1,0,1,1
+14,Create_Commission_Opp_Split,127,AutoLaunchedFlow,6,OpportunitySplit,RecordAfterSave,$Record.Opportunity.CloseDate LessThanOrEqualTo 2023-02-28; $Record.SplitOwner.LastName EqualTo Sangster,2,1,0,0,0,2,1
+15,Parent_MACD_Add,124,Flow,6,,,Add_Accessories EqualTo Yes,8,1,7,0,0,8,1
+16,FFXSCM_Process_Invoice_Lines,114,AutoLaunchedFlow,4,SCMC__Invoice_Line_Item__c,,varFirst EqualTo True,2,1,1,1,0,2,1
+17,Agilyx_Payable_Invoice_on_Hold_Release,114,AutoLaunchedFlow,1,c2g__codaPurchaseInvoice__c,RecordAfterSave,(and) SCMFFA__AP_Voucher__c IsNull false; c2g__InvoiceStatus__c EqualTo Complete; Agx_Partial_PO_with_Full_Invoice__c EqualTo true,1,1,0,0,0,0,1
+18,UpdateCompanyTaxInformation,111,Workflow,1,fferpcore__CompanyTaxInformation__c,onCreateOnly,formula_myRule_1 EqualTo True,1,1,0,0,0,0,1
+19,Tax_Rate_Synchronisation,111,Workflow,1,c2g__codaTaxRate__c,onAllChanges,formula_myRule_1 EqualTo True,1,1,0,0,0,0,1
+20,Tax_Code,111,Workflow,1,c2g__codaTaxCode__c,onAllChanges,formula_myRule_1 EqualTo True,1,1,0,0,0,0,1
+21,Analysis_Synchronisation_Dimension_4,111,Workflow,1,c2g__codaDimension4__c,onAllChanges,formula_myRule_1 EqualTo True,1,1,0,0,0,0,1
+22,Analysis_Synchronisation_Dimension_3,111,Workflow,1,c2g__codaDimension3__c,onAllChanges,formula_myRule_1 EqualTo True,1,1,0,0,0,0,1
+23,Analysis_Synchronisation_Dimension_2,111,Workflow,1,c2g__codaDimension2__c,onAllChanges,formula_myRule_1 EqualTo True,1,1,0,0,0,0,1
+24,Analysis_Synchronisation_Dimension_1,111,Workflow,1,c2g__codaDimension1__c,onAllChanges,formula_myRule_1 EqualTo True,1,1,0,0,0,0,1
+25,Discard_Documents,110,Flow,1,,,,0,1,0,0,0,0,1
+26,Opportunity_Add_Asset_v3,107,Flow,15,SCMC__Sales_Order__c,,What_action_would_you_like_to_perform EqualTo Update_product_details; Copy_1_of_What_action_would_you_like_to_perform EqualTo Update_product_details; Copy_1_of_Update_Product_Action_Screen WasVisited False; What_action_would_you_like_to_perform EqualTo Chan...,25,0,6,2,1,19,0
+27,Opportunity_Add_Asset_v2,107,Flow,50,SCMC__Sales_Order__c,,What_action_would_you_like_to_perform EqualTo Update_product_details; Copy_1_of_What_action_would_you_like_to_perform EqualTo Update_product_details; Copy_1_of_Update_Product_Action_Screen WasVisited False; What_action_would_you_like_to_perform EqualTo Chan...,24,0,6,2,1,19,0
+28,NEW_FUN_MACD_FLOW,104,Flow,1,SCMC__Sales_Order__c,,What_action_would_you_like_to_perform EqualTo Update_product_details; Copy_1_of_What_action_would_you_like_to_perform EqualTo Update_product_details; Update_Product_Action_Screen WasVisited False; What_action_would_you_like_to_perform EqualTo Change_Product...,25,0,6,2,1,19,0
+29,Sales_Order_MACD_Update,87,Flow,21,,,Move_Dispose_or_Add EqualTo Move; Move_Dispose_or_Add EqualTo Dispose,11,0,0,3,0,8,0
+30,Compliance_Approval_Process_Submitted,84,AutoLaunchedFlow,30,Opportunity,RecordAfterSave,(and) StageName EqualTo Compliance Approval; Approval_Status__c NotEqualTo Approved,4,4,0,1,0,2,0
+31,New_Sales_Order_Creation,54,Workflow,5,SCMC__Sales_Order__c,onCreateOnly,myVariable_old IsNull False; myVariable_old.SCMC__Status__c NotEqualTo myVariable_current.SCMC__Status__c,2,2,0,0,0,0,0
+32,Opportunity_MACD_Auto_Compliance_Approval,53,AutoLaunchedFlow,4,Opportunity,RecordAfterSave,(and) StageName IsChanged true; StageName EqualTo Compliance Approval; Approval_Status__c EqualTo Under Review,1,0,0,0,0,0,0
+33,Opportunity_Asset_MACD_Generator3,50,Flow,42,OpportunityLineItem,,ChildAssetMultiple IsNull False,16,0,7,5,2,7,0
+34,Update_Commission_Opportunity,50,AutoLaunchedFlow,5,Opportunity,RecordAfterSave,(or) AccountId IsChanged true; Funding_Type__c IsChanged true; Type IsChanged true,1,0,0,1,0,2,0
+35,Opportunity_Submit_Products_for_Approval,50,AutoLaunchedFlow,2,Opportunity,,productArray Contains Loop_Initial_Products.Product2Id,2,1,0,0,0,1,0
+36,ION_Update_Sales_Order_Line_PB,44,Workflow,1,SCMC__Sales_Order_Line_Item__c,onAllChanges,myVariable_current.SCMC__Item_Master__r.ION_Outbound_Serial_No__c EqualTo True,1,1,0,0,0,0,0
+37,FFXSCM_Process_Voided_Invoice,44,Workflow,2,SCMC__Invoicing__c,onAllChanges,myVariable_current.SCMC__Status__c EqualTo Voided,2,1,0,0,0,0,0
+38,Submit_deal_for_approval,43,AutoLaunchedFlow,1,Opportunity,,,0,1,0,0,0,0,0
+39,FFXSCM_Process_Invoice_Line_Items,43,AutoLaunchedFlow,2,SCMC__Invoicing__c,,,0,0,0,0,0,1,0
+40,Overdue_Transactions,41,Flow,6,,,Action_To_Perform Contains Create_Followup_Task; Action_To_Perform Contains Log_Call; Action_To_Perform Contains Log_Call; Action_To_Perform Contains Create_Followup_Task,1,4,0,0,0,2,0
+41,Display_Contacts,41,Flow,27,,,Contact_Id IsNull False; Contact_Id IsNull True,7,4,6,2,0,3,0
+42,ION_Update_Corp_Currency_value_of_PO_PB,41,Workflow,1,SCMC__Purchase_Order__c,onAllChanges,myVariable_current.SCMC__Ship_To_Warehouse__c IsNull False,2,2,0,0,0,0,0
+43,TEST_OUTBOUND_ACTION,41,AutoLaunchedFlow,1,SCMC__Sales_Order__c,RecordAfterSave,(and) SCMC__Status__c EqualTo Approved,1,1,0,0,0,0,0
+44,Notify_deal_rejections,41,Workflow,3,Opportunity,onAllChanges,myVariable_old IsNull False; myVariable_old.StageName NotEqualTo myVariable_current.StageName,2,1,0,0,0,0,0
+45,Email_Deal_Into_Compliance,41,AutoLaunchedFlow,4,Opportunity,RecordAfterSave,(and) StageName EqualTo Compliance Approval; Approval_Status__c EqualTo Under Review,0,1,0,0,0,0,0
+46,Deal_accepted,41,Workflow,1,Opportunity,onAllChanges,myVariable_old IsNull False; myVariable_old.link_Opp2SO_Id__r.Id NotEqualTo myVariable_current.link_Opp2SO_Id__r.Id,2,1,0,0,0,0,0
+47,Account_Approval_Submission,39,AutoLaunchedFlow,2,Account,RecordAfterSave,$Record.RecordType.Name EqualTo Supplier; $Record.Type EqualTo Vendor; $Record.RecordType.Name EqualTo Customer,1,2,0,0,0,0,0
+48,Opportunity_Move_Asset_Generator,37,Flow,8,MACD_Line_Item__c,,Would_you_like_to_update_current_moves_or_add_a_new_move EqualTo Update_Current_Moves,13,0,4,6,3,15,0
+49,Update_Commission_Opp_Product,37,AutoLaunchedFlow,4,OpportunityLineItem,RecordAfterSave,$Record.Opportunity.CloseDate LessThanOrEqualTo 2023-02-28; $Record.Opportunity.Owner.LastName Contains Sangster,1,0,0,1,0,2,0
+50,Create_Commission_Opp_Product,37,AutoLaunchedFlow,21,OpportunityLineItem,RecordAfterSave,Loop_Splits.Department__c Contains Ireland,2,0,1,0,0,3,0
+51,Update_Opportunity_Closed_Lost_Date,37,AutoLaunchedFlow,2,Opportunity,RecordAfterSave,(and) StageName EqualTo Closed Lost,0,0,0,1,0,0,0
+52,Update_Commission_Sales_Order_Line_Item,37,AutoLaunchedFlow,3,SCMC__Sales_Order_Line_Item__c,RecordAfterSave,(and) link_Opp2SO_Id__c IsNull false,1,0,0,1,0,1,0
+53,Stamp_Info_From_Opportunity_To_Improve_Search,37,AutoLaunchedFlow,4,SCMC__Sales_Order__c,RecordBeforeSave,(and) link_Opp2SO_Id__c IsNull false,0,0,0,0,0,1,0
+54,Set_Opportunity_Owner,37,AutoLaunchedFlow,20,Opportunity,RecordBeforeSave,$Record.Lines_Of_Business__c EqualTo Supplies; $User.ProfileId NotEqualTo 00e8e0000011h2F; $User.ProfileId NotEqualTo 00e8e000000DfHw; $Profile.Id NotEqualTo 00e8e0000011h2E,1,0,0,0,0,0,0
+55,Sales_Order_Reason_not_Invoiced_pull_through,37,AutoLaunchedFlow,1,SCMC__Sales_Order__c,RecordAfterSave,(and) Reason_not_invoiced__c IsChanged true,0,0,0,1,0,0,0
+56,Cancel_MACDs_Closed_Lost_Opp,37,AutoLaunchedFlow,2,Opportunity,RecordAfterSave,(and) StageName EqualTo Closed Lost,0,0,0,1,0,1,0
+57,Opportunity_Naming_Convention,36,AutoLaunchedFlow,8,Opportunity,RecordBeforeSave,,0,0,0,0,0,1,0
+58,Opportunity_Calculate_Contractual_Split,36,AutoLaunchedFlow,2,Opportunity,RecordAfterSave,,0,0,0,1,0,1,0
+59,Sales_Invoice_Order_Checker,34,AutoLaunchedFlow,2,c2g__codaInvoice__c,RecordAfterSave,(and) c2g__InvoiceStatus__c EqualTo Complete; SCMFFA__SCM_Invoice__c IsNull false,4,1,0,0,0,4,0
+60,ION_UpdateOppProduct_PB,34,Workflow,1,OpportunityLineItem,onAllChanges,myVariable_current.PricebookEntryId IsNull False; myVariable_current.IWM_Sales_Order_Line_type__c IsNull False,1,1,0,0,0,0,0
+61,Update_the_invoiced_status_field,34,AutoLaunchedFlow,1,SCMC__Sales_Order__c,RecordAfterSave,(and) Invoiced_Status__c NotEqualTo Completed,2,0,0,4,0,1,0
+62,Update_SOLI_on_Opp_Product,34,AutoLaunchedFlow,3,SCMC__Sales_Order_Line_Item__c,RecordAfterSave,(and) link_Opp2SO_Id__c IsNull false,1,0,0,1,0,0,0
+63,Update_MACDs_to_SO,34,AutoLaunchedFlow,2,SCMC__Sales_Order__c,RecordAfterSave,Get_MACDs IsNull False,1,0,0,2,0,1,0
+64,Update_Invoice_Lines_schedule,34,AutoLaunchedFlow,3,SCMC__Sales_Order_Line_Item__c,Scheduled,(and) Invoice_Line_Item__c EqualTo; SCMC__Status__c NotEqualTo Cancelled; SCMC__Status__c NotEqualTo New; SCMC__Status__c NotEqualTo Revised,1,0,0,1,0,1,0
+65,Sales_Order_Line_Product_Grouping,34,AutoLaunchedFlow,1,SCMC__Sales_Order_Line_Item__c,RecordAfterSave,(and) Product_Grouping__c IsNull false,0,0,0,1,0,1,0
+66,Sales_Order_Completed_by_Operations_Field_Update,34,AutoLaunchedFlow,1,SCMC__Sales_Order__c,RecordBeforeSave,(and) Completed_by_Operations__c EqualTo true,0,0,0,1,0,0,0
+67,Run_Invoice_updates,34,AutoLaunchedFlow,3,SCMC__Sales_Order_Line_Item__c,Scheduled,(and) Invoice_Line_Item__c IsNull true,0,0,0,0,0,1,0
+68,Lock_Opportunities_on_ClosedWon,34,AutoLaunchedFlow,6,Opportunity,RecordAfterSave,(and) StageName EqualTo Closed Won,1,0,0,1,0,2,0
+69,Delete_Commissions_Closed_Lost,34,AutoLaunchedFlow,6,Opportunity,RecordAfterSave,(and) StageName EqualTo Closed Lost; OwnerId NotEqualTo 0054K000004L3Mw,0,0,0,1,1,0,0
+70,Add_Sales_Invoice_Number,34,AutoLaunchedFlow,2,Opportunity,RecordBeforeSave,(and) FFX_SalesInvoice__c IsNull false,0,0,0,1,0,0,0
+71,Add_Related_Invoice,34,AutoLaunchedFlow,10,SCMC__Sales_Order__c,RecordAfterSave,Loop_Invoices_0.SCMFFA__Sales_Invoice__c IsNull False,2,0,0,1,0,1,0
+72,Update_SO_from_Opp,33,AutoLaunchedFlow,8,SCMC__Sales_Order__c,RecordBeforeSave,,0,0,0,0,0,0,0
+73,Update_Invoice_Line_Items,33,AutoLaunchedFlow,12,SCMC__Sales_Order_Line_Item__c,RecordBeforeSave,,0,0,0,0,0,1,0
+74,Update_SOs_with_SIN_creation_date,31,AutoLaunchedFlow,9,SCMC__Invoicing__c,RecordAfterSave,(and) SCMFFA__Sales_Invoice__c NotEqualTo,0,0,0,1,0,0,0
+75,Update_SOLI_on_Creation,31,AutoLaunchedFlow,13,SCMC__Sales_Order_Line_Item__c,RecordAfterSave,(and) IsDeleted EqualTo false,2,0,0,1,0,0,0
+76,Update_Revenue,31,AutoLaunchedFlow,4,Opportunity,Scheduled,(and) Estimated_Revenue__c IsNull true; StageName EqualTo Closed Won; IWM_Sales_Order_Req__c EqualTo true,0,0,0,1,0,0,0
+77,Update_Notify_Billng,31,AutoLaunchedFlow,2,Opportunity,RecordBeforeSave,(and) Lines_Of_Business__c EqualTo Print; Notifiy__c EqualTo,0,0,0,0,0,0,0
+78,Update_Fulfilment_Status_Rejected,31,AutoLaunchedFlow,4,Opportunity,RecordAfterSave,$Record.link_Opp2SO_Id__r.Id IsNull True; $Record.Fulfilment_Status__c IsNull True; $Record__Prior.StageName EqualTo Closed Won; $Record.StageName EqualTo Open; $Record.IWM_Sales_Order_Req__c EqualTo True; $Record.link_Opp2SO_State__c EqualTo Ok; $Record.Fu...,1,0,0,2,0,0,0
+79,Set_Description,31,AutoLaunchedFlow,8,Opportunity,RecordAfterSave,(and) StageName NotEqualTo Compliance Approval; Description NotEqualTo,0,0,0,1,0,0,0
+80,Create_Install_Analyst_Line,31,AutoLaunchedFlow,12,Opportunity,,SalesOrder IsNull False,3,0,2,1,1,3,0
+81,Create_Delivery_Lines,31,AutoLaunchedFlow,6,Opportunity,,Get_Delivery_for_Update IsNull False,2,0,2,0,0,3,0
+82,Create_Delivery_Line_Item_on_Creation,31,AutoLaunchedFlow,5,Opportunity,RecordAfterSave,(and) Lines_Of_Business__c IsNull false,2,0,1,1,0,1,0
+83,Checklist_Update,31,AutoLaunchedFlow,2,Opportunity,RecordAfterSave,(or) Lines_Of_Business__c IsChanged true,1,0,1,0,1,2,0
+84,Checklist_Creation,31,AutoLaunchedFlow,8,Opportunity,RecordAfterSave,(and) Lines_Of_Business__c IsNull false,0,0,1,0,0,1,0
+85,Check_for_Approved_Products,31,AutoLaunchedFlow,3,Opportunity,,Loop_Products.Product2.Approval_Status__c NotEqualTo Approved,1,0,0,0,0,1,0
+86,Add_files_to_SOs,31,AutoLaunchedFlow,16,SCMC__Sales_Order__c,RecordAfterSave,(and) link_Opp2SO_Id__c IsNull false,2,0,1,0,0,2,0
+87,Set_Primary_Sales_Rep,30,AutoLaunchedFlow,1,SCMC__Sales_Order__c,RecordAfterSave,,0,0,0,1,0,0,0
+88,Opportunity_Dispose_Asset_Generator,27,Flow,16,MACD_Line_Item__c,,Would_you_like_to_update_current_disposals_or_add_a_new_disposal EqualTo New_Disposal,9,0,3,4,2,10,0
+89,Update_Commission_Sales_Invoice,27,AutoLaunchedFlow,2,c2g__codaInvoice__c,RecordAfterSave,(and) c2g__Transaction__c NotEqualTo; SCMFFA__SCM_Invoice__c NotEqualTo,1,0,0,1,0,1,0
+90,Delete_Commissions_Opp_Line,27,AutoLaunchedFlow,1,OpportunityLineItem,RecordBeforeDelete,$Record.Opportunity.CloseDate LessThanOrEqualTo 2023-02-28,2,0,0,0,1,1,0
+91,Account_Check_Schedule,26,AutoLaunchedFlow,4,Account,Scheduled,(and) Record_Type__c EqualTo Customer,0,0,0,0,0,0,0
+92,Update_Opportunity_Quantity,26,AutoLaunchedFlow,4,OpportunityLineItem,RecordAfterSave,,0,0,0,1,0,1,0
+93,X0_VAT_Lines,24,AutoLaunchedFlow,3,SCMC__Purchase_Order__c,RecordAfterSave,(and) X0_VAT__c EqualTo true,0,0,0,1,0,1,0
+94,Update_VAT_PO_lines,24,AutoLaunchedFlow,12,SCMC__Purchase_Order_Line_Item__c,RecordBeforeSave,$Record.SCMC__Purchase_Order__r.X0_VAT__c EqualTo True,1,0,0,0,0,0,0
+95,Purchase_Order_Number_Stamp,24,AutoLaunchedFlow,3,SCMC__Purchase_Order__c,RecordAfterSave,(and) SCMC__Sales_Order__c NotEqualTo,0,0,0,1,0,1,0
+96,Update_POLI_on_Creation,21,AutoLaunchedFlow,5,SCMC__Purchase_Order_Line_Item__c,RecordBeforeSave,$Record.SCMC__Purchase_Order__r.RecordType.Name EqualTo Internal Purchase Order; $Record.SCMC__Purchase_Order__r.RecordType.Name EqualTo Drop Ship Purchase Order,2,0,0,0,0,0,0
+97,Set_Rollout_Quantity_Intangible,21,AutoLaunchedFlow,1,OpportunityLineItem,RecordAfterSave,$Record.ProductCode EqualTo PS-EXT-MPS; $Record.ProductCode EqualTo GP - MP,1,0,0,1,0,0,0
+98,Set_Product_Condition,21,AutoLaunchedFlow,4,OpportunityLineItem,RecordAfterSave,$Record.Product_Condition__c EqualTo New; $Record.Product_Condition__c EqualTo Refurbished,1,0,0,3,0,0,0
+99,Remove_Product_Lines,21,Flow,8,OpportunityLineItem,,productType EqualTo Parent; productType EqualTo Accessory,1,0,1,0,1,0,0
+100,Create_SO_Lines,21,AutoLaunchedFlow,5,OpportunityLineItem,,opportunityLines IsNull False,3,0,1,1,0,1,0
+101,Check_and_populate_PO_number,21,AutoLaunchedFlow,1,c2g__codaInvoice__c,RecordBeforeSave,(or) c2g__CustomerReference__c IsNull true; c2g__CustomerReference__c EqualTo,1,0,0,1,0,0,0
+102,Assign_PO_Values_from_SO,21,AutoLaunchedFlow,5,SCMC__Purchase_Order__c,RecordBeforeSave,$Record.RecordType.Name EqualTo Drop Ship Purchase Order; $Record.SCMC__Override_Ship_to_Address__c IsNull False; $Record.RecordType.Name EqualTo Drop Ship Purchase Order; $Record.SCMC__Override_Ship_to_Address__c IsNull True,1,0,0,0,0,0,0
+103,Opportunity_Subflow_Asset_MACD_Generator,19,AutoLaunchedFlow,1,MACD_Line_Item__c,,,0,0,2,0,0,2,0
+104,Update_Commission_Opp_Split,17,AutoLaunchedFlow,4,OpportunitySplit,RecordAfterSave,(or) SplitPercentage IsChanged true; Department__c IsChanged true,1,0,0,1,0,2,0
+105,MACD_Attach_Opp_Documents,17,AutoLaunchedFlow,1,MACD__c,RecordAfterSave,Filter_for_Existing_Documents IsNull True; Filter_for_Existing_Documents IsEmpty True,2,0,1,0,0,2,0
+106,Update_Last_Active_Date,16,AutoLaunchedFlow,15,Account,Scheduled,(and) RecordTypeId EqualTo 0124K000000gpI5QAI,3,0,0,0,0,2,0
+107,Update_Account_for_Assets,16,AutoLaunchedFlow,4,Account,RecordBeforeSave,Get_Assets IsNull False,1,0,0,0,0,1,0
+108,Set_Same_Shipping_Address,16,AutoLaunchedFlow,1,Account,RecordAfterSave,(and) Billing_Shipping_Address__c EqualTo true,0,0,0,1,0,0,0
+109,Set_Account_Hierarchy,16,AutoLaunchedFlow,2,Account,RecordBeforeSave,Get_Parent_Account IsNull False,2,0,0,0,0,1,0
+110,Schedule_Account_Supplier_Updates,16,AutoLaunchedFlow,3,Account,Scheduled,(and) RecordTypeId EqualTo 0124K000000gpIAQAY,0,0,0,1,0,2,0
+111,FFX_Set_Account_Trading_Currency,16,AutoLaunchedFlow,1,Account,RecordAfterSave,(and) c2g__CODAAccountTradingCurrency__c IsNull true,0,0,0,1,0,0,0
+112,FFX_Account,16,AutoLaunchedFlow,5,Account,RecordAfterSave,(and) FFX_CaseSafeAccountID__c EqualTo,0,0,0,1,0,0,0
+113,Data_Garage_Return_Non_Active_Accounts_to_Garage,16,AutoLaunchedFlow,1,Account,Scheduled,(and) Reallocated_Time_Stamp__c IsNull false,3,0,0,1,0,2,0
+114,Data_Garage_Assign_Account_to_Sales_Multi_Assignment,16,Flow,1,Account,,Cancel_Changes EqualTo True,2,0,0,1,0,1,0
+115,Credit_Safe_Bypass_Tracking,16,AutoLaunchedFlow,1,Account,RecordBeforeSave,(and) Bypass_Creditsafe__c EqualTo true,0,0,0,1,0,0,0
+116,Check_for_Lapsed_Customers,16,AutoLaunchedFlow,1,Account,Scheduled,(and) Review_Customer_Status__c EqualTo true,0,0,0,1,0,0,0
+117,Address_Automation,16,AutoLaunchedFlow,2,Account,RecordBeforeSave,$Record.ParentId IsNull False; $Record.BillingCity IsNull True; $Record.ShippingCity IsNull False; $Record.BillingCity IsNull True,1,0,0,0,0,0,0
+118,Sales_Account_Search_Flow,15,Flow,3,Account,,,0,0,0,0,0,0,0
+119,Non_Customer_Reallocation_Sub_Flow_Assign_Owners,15,AutoLaunchedFlow,1,Account,,,0,0,0,1,0,0,0
+120,Update_Commission_Other_Transactions_Schedule,14,AutoLaunchedFlow,2,Commission_Payment__c,Scheduled,(and) Sales_Invoice__c IsNull false; Sales_Invoice_Transaction__c IsNull false; Paid_Date__c IsNull true; Inv_Payment_Status__c EqualTo Paid,2,0,0,1,0,2,0
+121,ION_Update_Invoice_Line_Item_PB,14,Workflow,1,SCMC__Invoice_Line_Item__c,onCreateOnly,myVariable_current.RecordType.Name EqualTo Miscellaneous; myVariable_current.RecordType.Name EqualTo Freight,1,1,0,0,0,0,0
+122,ION_AddCompanyToBillingDoc_PB,14,Workflow,1,fferpcore__BillingDocument__c,onCreateOnly,myVariable_current.fferpcore__Company__c IsNull True; myVariable_current.SCM_Invoice__c IsNull False,1,1,0,0,0,0,0
+123,Update_Asset_after_MACD_Creation,14,Flow,18,MACD_Line_Item__c,,What_is_happening_to_this_asset EqualTo Remaining_On_Site; What_is_happening_to_this_asset_move EqualTo Remaining_On_Site; What_is_happening_to_this_asset EqualTo Change_Asset,6,0,0,2,1,0,0
+124,Update_Asset_Site_From_MACD_LI_When_Complete,14,AutoLaunchedFlow,3,MACD_Line_Item__c,RecordBeforeSave,(and) Status__c EqualTo Completed,0,0,0,0,0,0,0
+125,MACD_Rollout_Screen,14,Flow,1,MACD_Line_Item__c,,Is_this_a_Full_Deployment_or_Rollout EqualTo Full_Deployment,1,0,0,0,0,0,0
+126,MACD_LI_Name_Updater,14,AutoLaunchedFlow,2,MACD_Line_Item__c,RecordAfterSave,(and) Asset__c IsNull false,0,0,0,2,0,1,0
+127,MACD_Duplicate_Checker,14,AutoLaunchedFlow,3,MACD_Line_Item__c,,serialNumber EqualTo Loop_Current_Array.Asset__r.SerialNumber,2,0,0,0,0,0,0
+128,MACD_Complete_MACD,14,AutoLaunchedFlow,12,MACD__c,RecordAfterSave,(and) Status__c EqualTo Completed,1,0,0,3,0,2,0
+129,Cancelled_MACD_Line_Revert_Asset_Status,14,AutoLaunchedFlow,1,MACD_Line_Item__c,RecordAfterSave,(and) Status__c EqualTo Cancelled,0,0,0,1,0,0,0
+130,Cancel_MACD_Lines_Cancelled_MACD,14,AutoLaunchedFlow,2,MACD__c,RecordAfterSave,(and) Status__c EqualTo Cancelled,0,0,0,2,0,1,0
+131,Account_Level_Add_MACD,13,Flow,4,,,,0,0,1,0,0,1,0
+132,Update_MACD_LI_from_MACD,13,AutoLaunchedFlow,5,MACD__c,RecordAfterSave,,0,0,0,2,0,1,0
+133,Product_Request_Flow,11,Flow,5,,,Product_Duplicate_Checker.Results.productExists EqualTo False; Would_you_like_to_add_a_new_currency EqualTo Yes,2,1,2,1,0,0,0
+134,New_Picklist_Notification,11,AutoLaunchedFlow,2,SCMC__Picklist__c,RecordAfterSave,$Record.SCMC__Sales_Order__r.link_Opp2SO_Id__r.Lines_Of_Business__c EqualTo Digital Workspace,1,1,0,0,0,0,0
+135,M2_Picklist_Email,11,AutoLaunchedFlow,1,SCMC__Picklist__c,RecordAfterSave,(and) SCMC__Shipper__c IsNull false,2,1,0,0,0,1,0
+136,Lead_Generation,11,Flow,6,,,Abnormal EqualTo r,4,1,4,1,0,2,0
+137,FFX_FAMFixedAssetActiveAmendment,11,Flow,1,,,varLastActiveScheduleDate IsNull False,9,0,2,8,1,7,0
+138,FFX_FAMAssetCheckAndApprove,11,Flow,1,,,varAssetDateAcquired IsNull False,6,1,0,0,0,1,0
+139,Contract_email_alert_90_days_before_expires,11,AutoLaunchedFlow,1,Contract,Scheduled,(and) EndDate IsNull false,0,1,0,0,0,0,0
+140,Agilyx_Overdue_Transactions_Test,11,Flow,22,,,recordId StartsWith a5e,2,0,1,0,0,4,0
+141,Update_Location_At_Site,11,AutoLaunchedFlow,1,MACD_Line_Item__c,RecordAfterSave,(and) MACD_Type__c EqualTo Dispose,0,0,0,1,0,1,0
+142,Processing_Complete,10,AutoLaunchedFlow,1,Field_Trip__Object_Analysis__c,RecordAfterSave,,0,1,0,0,0,0,0
+143,Email_Stock_Receipts,10,AutoLaunchedFlow,1,SCMC__Receipt__c,RecordAfterSave,,0,1,0,0,0,0,0
+144,Update_Contact_Active_Status,10,AutoLaunchedFlow,1,Contact,RecordAfterSave,,0,0,0,1,0,0,0
+145,FFX_Contact,10,AutoLaunchedFlow,1,Contact,RecordAfterSave,,0,0,0,1,0,0,0
+146,Capture_Meters_Screen,10,Flow,4,MACD_Line_Item__c,,,0,0,0,1,0,0,0
+147,Opportunity_Compliance_Approval_Screen,9,Flow,5,,,,0,0,0,0,0,1,0
+148,Sales_Order_Invoice_Checker,7,Flow,3,,,IssuesText IsBlank True,5,0,0,1,0,4,0
+149,Opportunity_Parent_Child_Products_Generator,7,Flow,36,Product_Groups__c,,Add_Accessory_To_Parent_Toggle.value EqualTo True,22,0,9,4,0,23,0
+150,Opportunity_Change_Asset_Generator,7,Flow,28,Product_Groups__c,,Get_Subproducts_Accessories IsNull False,22,0,12,6,0,28,0
+151,Opportunity_Add_Products,7,Flow,1,Product_Groups__c,,Get_Accessories_Related_to_Product IsNull False,4,0,1,0,0,8,0
+152,Delete_Commissions_Opp_Split,7,AutoLaunchedFlow,1,OpportunitySplit,RecordBeforeDelete,$Record.Opportunity.CloseDate LessThanOrEqualTo 2023-02-28,2,0,0,0,1,1,0
+153,Complete_MACD_Sales_Order,7,AutoLaunchedFlow,3,,,$UserRole.Name EqualTo MACD Team; $UserRole.Name EqualTo Billing Team,1,0,0,2,0,1,0
+154,Opportunity_Duplicate,6,Flow,2,,,,1,0,4,0,0,3,0
+155,update_invoice_lines,4,AutoLaunchedFlow,1,SCMC__Invoice_Line_Item__c,Scheduled,(and) SCMC__Sales_Order_Line_Item__c IsNull false,1,0,0,1,0,1,0
+156,creat_update_Commissions,4,AutoLaunchedFlow,16,Commission_Payment__c,,CommissionPayment.Paid_Date__c IsNull False; CommissionPayment.SalesOrder__c IsNull True,4,0,3,6,0,2,0
+157,Update_Sales_Order,4,Flow,17,,,Select_an_Action EqualTo Add_Product,2,0,5,3,0,8,0
+158,Technical_Approval,4,Flow,1,,,Technically_Approve_Deal EqualTo Approve; Approve_Deal EqualTo Approve,4,0,4,1,0,1,0
+159,Populate_Department_Opp_Split,4,AutoLaunchedFlow,3,OpportunitySplit,RecordAfterSave,$Record.Department__c IsNull True,1,0,0,1,0,0,0
+160,Invoice_Line_Check,4,Flow,8,,,LoopGetLines.RecordType.Name EqualTo Drop Ship; LoopGetLines.SCMC__Purchase_Order_Line_Item__c IsNull True; LoopGetLines.RecordType.Name EqualTo Item,6,0,0,0,0,7,0
+161,ION_Update_Invoice_Line,4,AutoLaunchedFlow,1,,,RecordTypeName EqualTo Miscellaneous; RecordTypeName EqualTo Freight,1,0,0,1,0,4,0
+162,FFXSCM_Update_JE_Date_for_SCM_Invoice_Drop_Ship_Void,4,AutoLaunchedFlow,1,c2g__codaJournal__c,RecordBeforeSave,(and) c2g__Type__c EqualTo SCM Drop Ship Journal; SCMFFA__SCM_Perpetual_Transaction__c IsNull false,1,0,0,1,0,0,0
+163,FFA_Sales_Invoice_Line_Item_to_ITPR_trigger,4,AutoLaunchedFlow,2,c2g__codaInvoiceLineItem__c,RecordAfterSave,(and) SCMFFA__SCM_Invoice_Line__c IsNull false,1,0,0,1,0,2,0
+164,Display_Past_Opp_Products,4,Flow,1,,,Select_what_to_see EqualTo Assets,1,0,0,0,0,4,0
+165,Commission_Other_Transactions,4,AutoLaunchedFlow,1,Commission_Payment__c,,Loop_References.c2g__TransactionLineItem__r.Plain_Document_Number__c Contains SIN,1,0,0,0,0,0,0
+166,Commission_Assign_Plan,4,AutoLaunchedFlow,2,Commission_Payment_Plans__c,,userCount GreaterThan 0; divisionCount GreaterThan 0,1,0,0,0,0,0,0
+167,Agilyx_AP_Voucher_to_Payable_Invoice,4,Flow,1,,,Loop_AP_Voucher_Lines_Collection.RecordType.DeveloperName EqualTo Item; Loop_AP_Voucher_Lines_Collection.SCMC__Purchase_Order_Line_Item__c IsNull False; Loop_AP_Voucher_Lines_Collection.SCMC__Purchase_Order_Line_Item__r.SCMFFA__General_Ledger_Account__c IsN...,2,0,3,2,0,5,0
+168,Update_Sales_Order_Line,3,AutoLaunchedFlow,1,,,,0,0,0,1,0,2,0
+169,Sales_Invoice_Set_Customer_Price,3,AutoLaunchedFlow,1,c2g__codaInvoiceLineItem__c,RecordAfterSave,,0,0,0,1,0,0,0
+170,MACD_Meter_Reading_Screen,3,Flow,1,,,,0,0,0,1,0,1,0
+171,ION_UpdateOppWithSORecType,3,AutoLaunchedFlow,1,,,,0,0,0,1,0,2,0
+172,ION_UpdateOppProduct,3,AutoLaunchedFlow,1,,,,0,0,0,1,0,2,0
+173,ION_Sales_Order_Update,3,AutoLaunchedFlow,1,,,,0,0,0,1,0,4,0
+174,ION_AddCompanyToBillingDocument,3,AutoLaunchedFlow,1,,,,0,0,0,1,0,4,0
+175,Update_the_Quote_trading_company_if_missing,1,AutoLaunchedFlow,2,Quote,RecordBeforeSave,(and) Trading_Company__c IsNull true; Opportunity_ERP_Company__c NotEqualTo,0,0,0,0,0,1,0
+176,Update_Task_Contact,1,AutoLaunchedFlow,3,Task,RecordBeforeSave,Get_Contact IsNull False; Get_Lead IsNull False,1,0,0,0,0,2,0
+177,Update_Quote_Fields,1,AutoLaunchedFlow,4,Quote,RecordAfterSave,(and) ExpirationDate IsNull true,0,0,0,1,0,0,0
+178,Update_Product_Codes,1,AutoLaunchedFlow,9,Product2,RecordAfterSave,(or) Product_Category__c IsNull false; Product_Category__c IsChanged true,0,0,0,3,0,4,0
+179,Update_Product_Association,1,Flow,5,,,Action_to_Perform EqualTo Add_Association,2,0,1,0,1,4,0
+180,Update_Product_Approver,1,AutoLaunchedFlow,1,Product2,RecordAfterSave,(and) Approval_Status__c IsChanged true; Approval_Status__c EqualTo Approved,0,0,0,1,0,0,0
+181,Update_Child_Assets_With_Serial_Number_From_Parent,1,AutoLaunchedFlow,1,Asset,RecordAfterSave,(and) SerialNumber NotEqualTo,0,0,0,1,0,0,0
+182,Trigger_Update_SO,1,AutoLaunchedFlow,4,,,documents Contains Loop_Opp_Files_Found.ContentDocumentId,2,0,1,0,0,3,0
+183,Tasks_Remove_Call_Recording_Link,1,AutoLaunchedFlow,2,Task,RecordAfterSave,$Record.Description Contains Call recording:,1,0,0,1,0,0,0
+184,Singular_Store_Asset,1,Flow,14,,,Update_Asset_Name EqualTo Yes,3,0,5,3,0,1,0
+185,Singular_Asset_Move,1,Flow,14,,,Update_Asset_Name EqualTo Yes,4,0,6,3,0,3,0
+186,Singular_Asset_Dispose,1,Flow,23,,,Get_Asset_Information.Product2.Product_Category__r.Business_Service__c EqualTo Print,3,0,8,2,0,6,0
+187,Set_Inventory_Position_Cost,1,AutoLaunchedFlow,1,SCMC__Inventory_Position__c,RecordAfterSave,(and) SCMC__Receipt_Line__c IsNull false,1,0,0,1,0,0,0
+188,Sales_Account_Search_Sub_Flow_Get_Records,1,AutoLaunchedFlow,2,,,Select_Type_of_Search_Choice EqualTo Account Name; Select_Type_of_Search_Choice EqualTo Company Number,1,0,0,0,0,2,0
+189,SCM_ITPR_Export_Delay_Trigger,1,AutoLaunchedFlow,1,SCMC__Inventory_Transaction_Perpetual_Record__c,RecordAfterSave,(and) SCMC__Inventory_Transactions__c EqualTo Issue Customer Items Pick-list; SCMFFA__FF_Journal__c IsNull true; SCMC__Sales_Order_Line_Item__c IsNull false,0,0,0,1,0,0,0
+190,Product_Grouping_Check,1,AutoLaunchedFlow,2,,,productType EqualTo Accessory,1,0,0,0,0,4,0
+191,Product_Group_Name_Updater,1,AutoLaunchedFlow,1,Product_Groups__c,RecordAfterSave,(and) Sub_Product__c IsNull false,1,0,0,1,0,1,0
+192,Product_Duplicate_Checker,1,AutoLaunchedFlow,1,,,Get_Product IsNull False,2,0,0,0,0,2,0
+193,Journal_Line_Item_PrePaid_Description,1,AutoLaunchedFlow,1,c2g__codaJournalLineItem__c,RecordBeforeSave,(and) c2g__LineDescription__c IsNull true; Prepaid_Description__c IsNull false,0,0,0,0,0,0,0
+194,General_intelligence_Update,1,Flow,1,,,Get_Intel_Record IsNull True,4,0,1,1,0,1,0
+195,FFX_FAM_Fixed_Asset_Disposal,1,Flow,1,,,Get_Asset.FAM__Status__c EqualTo Active,3,0,4,2,0,4,0
+196,FFX_FAMInheritBookAndMethod,1,AutoLaunchedFlow,1,,,varSourceDepreciationBookID IsNull False,5,0,2,0,0,8,0
+197,FFX_FAMAddDepreciationToFixedAsset,1,Flow,1,,,varFixedAssetStatus EqualTo New; varFixedAssetStatus EqualTo Recalled; varFixedAssetStatus EqualTo Rejected; varFixedAssetStatus EqualTo Submitted; varFixedAssetStatus EqualTo Approved; varFixedAssetStatus EqualTo Active,6,0,3,2,2,6,0
+198,FFXSCM_Update_SCM_Transaction_with_PO_details,1,AutoLaunchedFlow,3,c2g__codaTransactionLineItem__c,RecordAfterSave,(or) FFX_PO__c IsNull true; FFX_PO__c EqualTo,14,0,0,1,0,3,0
+199,Display_Tasks,1,Flow,4,,,Get_Account IsNull False,1,0,0,1,0,2,0
+200,Delete_Product_Groups_when_Product_is_Deleted,1,AutoLaunchedFlow,2,Product2,RecordBeforeDelete,Get_Linked_Product_Groups IsNull False,1,0,0,0,1,1,0
+201,Deal_Summary_Checker,1,AutoLaunchedFlow,2,,,$Permission.MACD_UAT_Group EqualTo True,1,0,0,2,0,0,0
+202,Customer_Account_Check,1,AutoLaunchedFlow,5,,,Get_Account.Customer_Status__c EqualTo Customer,8,0,0,5,0,5,0
+203,Child_Assets_To_Update_From_Parent_Asset,1,AutoLaunchedFlow,3,Asset,RecordAfterSave,(or) Site__c IsChanged true; Site_Address__c IsChanged true; Site_Account__c IsChanged true; Location_at_Site__c IsChanged true,0,0,0,1,0,1,0
+204,Asset_Labelling,1,AutoLaunchedFlow,4,Asset,RecordAfterSave,(and) Name EqualTo -,1,0,0,1,0,1,0
+205,Approve_Pricing_Request,1,Flow,1,,,Would_you_like_to_approve_reject_or_update EqualTo Approve; Would_you_like_to_approve_reject_or_update EqualTo Reject,1,0,0,4,0,2,0
+206,Add_Account_Team_Member_to_Account,1,AutoLaunchedFlow,1,AccountTeamMember,RecordAfterSave,Get_The_Account.Account_Team_Names__c Contains $Record.User.Alias,1,0,0,1,0,1,0
+207,Account_Asset_Moves,1,Flow,3,,,locationId EqualTo,4,0,6,1,0,5,0
+208,Account_Asset_Disposals,1,Flow,16,,,collectionPrintCount GreaterThan 0; collectionDWCount GreaterThan 0; collectionPrintCount GreaterThan 0,4,0,12,2,0,6,0
+209,AGILYX_Set_Task_Collections_Info_to_TLI_Autolaunched,1,AutoLaunchedFlow,7,Task,,transactionMultipleUpdate Contains Loop_Filter,1,0,0,1,0,1,0
+210,Update_Supplier_Record_Type,0,AutoLaunchedFlow,3,SCMC__Supplier_Site__c,RecordAfterSave,,0,0,0,1,0,0,0
+211,Update_Quote_Delivery,0,AutoLaunchedFlow,2,Quote,RecordAfterSave,,0,0,0,1,0,1,0
+212,Update_Asset_Record,0,AutoLaunchedFlow,1,Asset,RecordBeforeSave,,0,0,0,1,0,0,0
+213,Transform_Customer_Address,0,AutoLaunchedFlow,1,Location,RecordAfterSave,,0,0,1,1,0,0,0
+214,Submit_to_Pricing_Team,0,Flow,2,,,,0,0,2,1,0,0,0
+215,Start_Authentication,0,Flow,6,,,,0,0,0,0,0,0,0
+216,Split_Deal_Revenue,0,Flow,1,,,,0,0,0,1,0,2,0
+217,Set_Snapshot_Currency,0,AutoLaunchedFlow,1,Opportunity_Snapshot__c,RecordBeforeSave,,0,0,0,0,0,0,0
+218,Set_Item_Name,0,AutoLaunchedFlow,3,SCMC__Item__c,RecordBeforeSave,,0,0,0,0,0,0,0
+219,Set_Hard_Call_Screen,0,Flow,2,,,,0,0,0,1,0,0,0
+220,Set_Hard_Call,0,AutoLaunchedFlow,1,,,,0,0,0,1,0,0,0
+221,Remove_Account_Team_Member_from_Account,0,AutoLaunchedFlow,1,AccountTeamMember,RecordBeforeDelete,,0,0,0,1,0,2,0
+222,Non_Customer_Reallocation_Flow,0,Flow,7,,,,0,0,0,0,0,1,0
+223,New_Location_Screen_Flow,0,Flow,3,,,,0,0,1,0,0,2,0
+224,Install_Analyst_Text,0,Flow,1,,,,0,0,0,0,0,4,0
+225,ION_Update_SO_with_FFA_Cmp_Name_from_Warehouse,0,AutoLaunchedFlow,1,,,,0,0,0,1,0,4,0
+226,ION_Update_PO_with_SF_Exchange_Rate,0,AutoLaunchedFlow,1,,,,0,0,0,1,0,3,0
+227,ION_Update_PO_with_FFA_Cmp_Name_from_Warehouse,0,AutoLaunchedFlow,1,,,,0,0,0,1,0,4,0
+228,End_Authentication,0,Flow,6,,,,0,0,0,0,0,0,0
+229,Deal_Checklist,0,Flow,1,,,,0,0,0,2,0,1,0
+230,Data_Garage_Assign_Account_to_Sales,0,AutoLaunchedFlow,2,,,,0,0,0,1,0,1,0
+231,Create_Location_Subflow,0,AutoLaunchedFlow,2,,,,0,0,1,0,0,1,0
+232,Contact_Removal,0,Flow,1,,,,0,0,0,1,0,1,0
+233,Companies_House_Flow,0,Flow,29,,,,0,0,0,0,0,0,0
+234,Checklist_Screen,0,Flow,1,,,,0,0,0,0,0,1,0
+235,Asset_Number_Generator,0,Flow,1,,,,0,0,0,0,0,0,0

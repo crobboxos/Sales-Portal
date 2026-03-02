@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_VAT</name>
+        <label>Assign VAT</label>
+        <locationX>308</locationX>
+        <locationY>395</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.VAT__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>vatFormula</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <name>Check_PO_VAT</name>
+        <label>Check PO VAT</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <defaultConnector>
+            <targetReference>Assign_VAT</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>X0_VAT</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SCMC__Purchase_Order__r.X0_VAT__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>0% VAT</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>vatFormula</name>
+        <dataType>Number</dataType>
+        <expression>if({!$Record.SCMC__Purchase_Order__r.X0_VAT__c},0,
+CASE({!$Record.CurrencyIsoCode},
+&quot;GBP&quot;,20,
+&quot;EUR&quot;,23,
+&quot;INR&quot;,18,
+&quot;SGD&quot;, 7,
+&quot;ZAR&quot;,15,
+null))</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Update VAT PO lines {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update VAT PO lines</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_PO_VAT</targetReference>
+        </connector>
+        <object>SCMC__Purchase_Order_Line_Item__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>VAT_Ireland</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+        <value>
+            <numberValue>23.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>VAT_UK</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+        <value>
+            <numberValue>20.0</numberValue>
+        </value>
+    </variables>
+</Flow>

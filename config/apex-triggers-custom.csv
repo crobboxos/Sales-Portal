@@ -1,0 +1,12 @@
+Id,Name,NamespacePrefix,TableEnumOrId,ApiVersion,LengthWithoutComments,Status
+01qPx000000OL1hIAG,DisableFeedCommentDeletes,,FeedComment,21,276,Active
+01qPx000000OL1iIAG,DisableFeedPostDeletes,,FeedItem,21,405,Active
+01qAe000005ebCTIAY,dlrs_AccountTrigger,,Account,65,192,Active
+01qAe000005eggnIAA,dlrs_AssetTrigger,,Asset,65,205,Active
+01qAe000005pZfCIAU,dlrs_c2godaInvoiceTrigger,,c2g__codaInvoice__c,65,241,Active
+01qAe000005j8GJIAY,dlrs_OpportunityLineItemTrigger,,OpportunityLineItem,65,247,Active
+01qAe000005ohy9IAA,dlrs_OpportunityTrigger,,Opportunity,65,223,Active
+01q8e000000CounAAC,OppLineSyncTrigger,,OpportunityLineItem,25,7190,Active
+01q8e000000CouoAAC,OppSyncTrigger,,Opportunity,25,7572,Active
+01q8e000000CoupAAC,QuoteLineSyncTrigger,,QuoteLineItem,25,7792,Active
+01q8e000000CouqAAC,QuoteSyncTrigger,,Quote,25,3464,Active

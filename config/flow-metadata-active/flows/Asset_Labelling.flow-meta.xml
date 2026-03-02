@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <name>Check_Asset_Condition</name>
+        <label>Check Asset Condition</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Label_the_asset</name>
+            <conditionLogic>(1 OR 2) AND NOT(3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Product2.Line_of_Business__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Digital Workspace</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Product2.Line_of_Business__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Print</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Name</leftValueReference>
+                <operator>StartsWith</operator>
+                <rightValue>
+                    <elementReference>assetLabel</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Asset_Account_Count</targetReference>
+            </connector>
+            <label>Label the asset</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>assetLabel</name>
+        <dataType>String</dataType>
+        <expression>{!assetNamePrefix} &amp; {!$Record.Account.Account_UID__c}</expression>
+    </formulas>
+    <formulas>
+        <name>assetLabelFinal</name>
+        <dataType>String</dataType>
+        <expression>{!assetLabel} &amp; {!assetNumbering}</expression>
+    </formulas>
+    <formulas>
+        <name>assetNamePrefix</name>
+        <dataType>String</dataType>
+        <expression>if({!$Record.Product2.Line_of_Business__c} = &quot;Digital Workspace&quot;, &quot;DBX&quot;,
+if({!$Record.Product2.Line_of_Business__c} = &quot;Print&quot;, &quot;PRN&quot;,&quot;&quot;)
+)</expression>
+    </formulas>
+    <formulas>
+        <name>AssetNumber</name>
+        <dataType>Number</dataType>
+        <expression>
+
+IF(ISBLANK({!Get_Asset_Account_Count.Name}),1,VALUE(SUBSTITUTE({!Get_Asset_Account_Count.Name},LEFT({!Get_Asset_Account_Count.Name},9),&quot;&quot;)) + 1)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>assetNumbering</name>
+        <dataType>String</dataType>
+        <expression>CASE(
+  LEN(TEXT({!AssetNumber})),
+  1, &quot;00000&quot; &amp; TEXT({!AssetNumber}),
+  2, &quot;0000&quot; &amp; TEXT({!AssetNumber}),
+  3, &quot;000&quot; &amp; TEXT({!AssetNumber}),
+  4, &quot;00&quot; &amp; TEXT({!AssetNumber}),
+  5, &quot;0&quot; &amp; TEXT({!AssetNumber}),
+  TEXT({!AssetNumber})
+)</expression>
+    </formulas>
+    <interviewLabel>Asset Labelling {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Asset Labelling</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Asset_Account_Count</name>
+        <label>Get Asset Account Count</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Name</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Name</field>
+            <operator>StartsWith</operator>
+            <value>
+                <elementReference>assetLabel</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Asset</object>
+        <sortField>Name</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Name</name>
+        <label>Update Name</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>assetLabelFinal</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_Asset_Condition</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>-</stringValue>
+            </value>
+        </filters>
+        <object>Asset</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>assetCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+</Flow>

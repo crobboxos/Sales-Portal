@@ -1,0 +1,21 @@
+rank,flow_developer_name,score,process_type,version_number,trigger_object,trigger_type,entry_criteria_summary,decision_count,action_call_count,record_create_count,record_update_count,record_delete_count,record_lookup_count,external_candidate_touchpoint_count
+1,FFX_SM_Product_Product_Group_PB,441,Workflow,2,Product2,onAllChanges,myVariable_current.IsActive EqualTo True; myVariable_current.c2g__CODAPurchaseAnalysisAccount__c IsNull False; myVariable_current.ION_Is_Stock_Item__c EqualTo True; myVariable_current.link_OPIProdGrp_Id__r.Id IsNull True,6,4,0,2,0,0,4
+2,Vantage_Invoices,334,AutoLaunchedFlow,4,,,Get_Vantage_Invoices IsNull False,1,3,2,0,1,2,3
+3,Compliance_Approval_Flow,294,AutoLaunchedFlow,19,Opportunity,,orderCreationInput EqualTo Create,5,5,3,3,0,6,2
+4,Reject_Opp,284,AutoLaunchedFlow,2,Opportunity,,decision EqualTo Reject,2,5,2,0,0,3,2
+5,SM_Account_Supplier_Site_PB,236,AutoLaunchedFlow,4,Account,RecordAfterSave,formula_TRUE_myRule_1 EqualTo True,5,2,0,4,0,0,2
+6,Demo_Run_Decision_Action,221,Flow,2,,,Loop_over_trees.treeId EqualTo Default_decision_tree,0,0,0,0,0,0,2
+7,All_Companies_House_Check,221,Flow,3,,,AccountName NotEqualTo; BillingCity NotEqualTo; BillingCountry NotEqualTo; BillingPostalCode NotEqualTo,3,2,0,2,0,2,2
+8,Technical_Evaluation,161,Flow,11,Opportunity,,decision EqualTo Approve,18,2,4,3,0,5,1
+9,ION_CreateSalesOrder_PB,151,Workflow,1,Opportunity,onAllChanges,myVariable_old IsNull False; myVariable_old.IWM_Sales_Order_Type__c NotEqualTo myVariable_current.IWM_Sales_Order_Type__c,3,2,0,0,0,0,1
+10,Opportunity_Compliance_Calculation,147,AutoLaunchedFlow,5,Opportunity,RecordAfterSave,(and) Approval_Status__c EqualTo Approved,0,1,0,1,0,2,1
+11,Call_Foundations_Billing_PB,144,Workflow,1,SCMC__Invoicing__c,onAllChanges,myVariable_old IsNull False; myVariable_old.ION_Bill_To_FFA__c NotEqualTo myVariable_current.ION_Bill_To_FFA__c,2,1,0,0,0,0,1
+12,ION_CreateSalesOrder_PB_2,141,AutoLaunchedFlow,5,Opportunity,RecordAfterSave,(and) StageName EqualTo Closed Won; IWM_Sales_Order_Req__c EqualTo true; link_Opp2SO_State__c NotEqualTo Ok,2,1,0,1,0,1,1
+13,Agilyx_Purchase_Order_Trigger_to_Release_Payable_Invoice,137,AutoLaunchedFlow,1,SCMC__Purchase_Order__c,RecordAfterSave,(and) SCMC__Status__c EqualTo Closed,2,1,0,1,0,1,1
+14,Create_Commission_Opp_Split,127,AutoLaunchedFlow,6,OpportunitySplit,RecordAfterSave,$Record.Opportunity.CloseDate LessThanOrEqualTo 2023-02-28; $Record.SplitOwner.LastName EqualTo Sangster,2,1,0,0,0,2,1
+15,Parent_MACD_Add,124,Flow,6,,,Add_Accessories EqualTo Yes,8,1,7,0,0,8,1
+16,FFXSCM_Process_Invoice_Lines,114,AutoLaunchedFlow,4,SCMC__Invoice_Line_Item__c,,varFirst EqualTo True,2,1,1,1,0,2,1
+17,Agilyx_Payable_Invoice_on_Hold_Release,114,AutoLaunchedFlow,1,c2g__codaPurchaseInvoice__c,RecordAfterSave,(and) SCMFFA__AP_Voucher__c IsNull false; c2g__InvoiceStatus__c EqualTo Complete; Agx_Partial_PO_with_Full_Invoice__c EqualTo true,1,1,0,0,0,0,1
+18,UpdateCompanyTaxInformation,111,Workflow,1,fferpcore__CompanyTaxInformation__c,onCreateOnly,formula_myRule_1 EqualTo True,1,1,0,0,0,0,1
+19,Tax_Rate_Synchronisation,111,Workflow,1,c2g__codaTaxRate__c,onAllChanges,formula_myRule_1 EqualTo True,1,1,0,0,0,0,1
+20,Tax_Code,111,Workflow,1,c2g__codaTaxCode__c,onAllChanges,formula_myRule_1 EqualTo True,1,1,0,0,0,0,1

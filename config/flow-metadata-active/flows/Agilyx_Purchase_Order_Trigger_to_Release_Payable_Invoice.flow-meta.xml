@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Release Payable Invoice from On Hold Status</description>
+        <name>Payable_Invoice_Release</name>
+        <label>Payable Invoice Release</label>
+        <locationX>138</locationX>
+        <locationY>815</locationY>
+        <actionName>AgxPayableInvoiceRelease</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Uncheck_Payable_Invoice_Partial_PO_with_Full_Invoice</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>companyName</name>
+            <value>
+                <elementReference>AP_Vouchers_for_Payable_Invoice_IDs.SCMFFA__Payable_Invoice__r.c2g__OwnerCompany__r.Name</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>payableInvoiceId</name>
+            <value>
+                <elementReference>AP_Vouchers_for_Payable_Invoice_IDs.SCMFFA__Payable_Invoice__r.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>AgxPayableInvoiceRelease</nameSegment>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <description>Check whether Purchase Order has the corresponding AP Vouchers.</description>
+        <name>AP_Voucher_records_is_null</name>
+        <label>AP Voucher records is null?</label>
+        <locationX>182</locationX>
+        <locationY>455</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>No</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_AP_Vouchers</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AP_Vouchers_for_Payable_Invoice_IDs</targetReference>
+            </connector>
+            <label>No</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Verify that Payable Invoice is On Hold</description>
+        <name>Payable_Invoice_on_Hold</name>
+        <label>Payable Invoice on Hold?</label>
+        <locationX>270</locationX>
+        <locationY>695</locationY>
+        <defaultConnector>
+            <targetReference>AP_Vouchers_for_Payable_Invoice_IDs</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>On_Hold</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AP_Vouchers_for_Payable_Invoice_IDs.SCMFFA__Payable_Invoice__r.c2g__HoldStatus__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>On Hold</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>AP_Vouchers_for_Payable_Invoice_IDs.SCMFFA__Payable_Invoice__r.Agx_Partial_PO_with_Full_Invoice__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Payable_Invoice_Release</targetReference>
+            </connector>
+            <label>On Hold</label>
+        </rules>
+    </decisions>
+    <description>Agilyx Purchase Order Trigger (on Status update to Closed) to Release Payable Invoice</description>
+    <environments>Default</environments>
+    <interviewLabel>Agilyx Purchase Order Trigger to Release Payable Invoice {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Agilyx Purchase Order Trigger to Release Payable Invoice</label>
+    <loops>
+        <description>Loop through AP Vouchers for the Payable Invoice IDs</description>
+        <name>AP_Vouchers_for_Payable_Invoice_IDs</name>
+        <label>Loop through AP Vouchers for the Payable Invoice IDs</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
+        <collectionReference>Get_AP_Vouchers</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Payable_Invoice_on_Hold</targetReference>
+        </nextValueConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get AP Vouchers, there could be more than 1</description>
+        <name>Get_AP_Vouchers</name>
+        <label>Get AP Vouchers</label>
+        <locationX>182</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>AP_Voucher_records_is_null</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SCMC__Purchase_Order__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>SCMFFA__Payable_Invoice__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SCMC__Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Matched</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>SCMC__AP_Voucher__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>SCMFFA__Payable_Invoice__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Uncheck Payable Invoice Partial PO with Full Invoice</description>
+        <name>Uncheck_Payable_Invoice_Partial_PO_with_Full_Invoice</name>
+        <label>Uncheck Payable Invoice Partial PO with Full Invoice</label>
+        <locationX>138</locationX>
+        <locationY>935</locationY>
+        <connector>
+            <targetReference>AP_Vouchers_for_Payable_Invoice_IDs</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>AP_Vouchers_for_Payable_Invoice_IDs.SCMFFA__Payable_Invoice__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Agx_Partial_PO_with_Full_Invoice__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>c2g__codaPurchaseInvoice__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_AP_Vouchers</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SCMC__Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </filters>
+        <object>SCMC__Purchase_Order__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

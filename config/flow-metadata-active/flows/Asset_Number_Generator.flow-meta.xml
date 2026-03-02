@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_Name</name>
+        <label>Assign Name</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignmentItems>
+            <assignToReference>assetName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>assetNumbering</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <environments>Default</environments>
+    <formulas>
+        <name>assetNumbering</name>
+        <dataType>String</dataType>
+        <expression>{!preText} &amp; {!accountUID} &amp; 
+
+IF( 
+LEN(TEXT({!assetCount})) = 1, 
+&quot;0000&quot; &amp; TEXT({!assetCount}), 
+      IF( 
+           LEN(TEXT({!assetCount})) = 2,
+           &quot;000&quot; &amp; TEXT({!assetCount}), 
+            IF( 
+                  LEN(TEXT({!assetCount})) = 3, 
+                   &quot;00&quot; &amp; TEXT({!assetCount}), 
+                   IF( 
+                        LEN(TEXT({!assetCount})) = 4, 
+                         &quot;0&quot; &amp; TEXT({!assetCount}),TEXT({!assetCount})
+))))</expression>
+    </formulas>
+    <interviewLabel>Asset Number Generator {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Asset Number Generator</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_Name</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>accountUID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>assetCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>assetName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>preText</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
