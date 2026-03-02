@@ -19,8 +19,42 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
+const DEFAULT_BYPASS_GROUPS = ["SalesPortal_Admin", "SalesPortal_Sales", "SalesPortal_ReadOnly"];
+
+function parseBooleanEnv(value: string | undefined): boolean {
+  if (!value) {
+    return false;
+  }
+
+  const normalized = value.trim().toLowerCase();
+  return normalized === "1" || normalized === "true" || normalized === "yes" || normalized === "on";
+}
+
+function parseBypassGroups(value: string | undefined): string[] {
+  if (!value) {
+    return DEFAULT_BYPASS_GROUPS;
+  }
+
+  const groups = value
+    .split(",")
+    .map((item) => item.trim())
+    .filter((item) => item.length > 0);
+  return groups.length > 0 ? groups : DEFAULT_BYPASS_GROUPS;
+}
+
+const AUTH_BYPASS_ENABLED = parseBooleanEnv(process.env.NEXT_PUBLIC_AUTH_BYPASS_ENABLED);
+const AUTH_BYPASS_TOKEN = process.env.NEXT_PUBLIC_AUTH_BYPASS_TOKEN || "local-dev-token";
+const AUTH_BYPASS_USER: AuthUser = {
+  name: process.env.NEXT_PUBLIC_AUTH_BYPASS_NAME || "Local Developer",
+  email: process.env.NEXT_PUBLIC_AUTH_BYPASS_EMAIL || "local.dev@sales-portal.test",
+  groups: parseBypassGroups(process.env.NEXT_PUBLIC_AUTH_BYPASS_GROUPS),
+};
+
 function createOktaAuthInstance(): OktaAuth | null {
   if (typeof window === "undefined") {
+    return null;
+  }
+  if (AUTH_BYPASS_ENABLED) {
     return null;
   }
   const issuer = process.env.NEXT_PUBLIC_OKTA_ISSUER;
@@ -66,6 +100,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const refreshAuthState = useCallback(async () => {
+    if (AUTH_BYPASS_ENABLED) {
+      setIsAuthenticated(true);
+      setUser(AUTH_BYPASS_USER);
+      setAccessToken(AUTH_BYPASS_TOKEN);
+      setConfigError(null);
+      setIsLoading(false);
+      return;
+    }
+
     const oktaAuth = oktaAuthRef.current;
     if (!oktaAuth) {
       setConfigError(
@@ -106,6 +149,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    if (AUTH_BYPASS_ENABLED) {
+      void refreshAuthState();
+      return;
+    }
+
     const oktaAuth = oktaAuthRef.current;
     if (!oktaAuth) {
       void refreshAuthState();
@@ -130,6 +178,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [refreshAuthState]);
 
   const login = useCallback(async (redirectPath?: string) => {
+    if (AUTH_BYPASS_ENABLED) {
+      setIsAuthenticated(true);
+      setUser(AUTH_BYPASS_USER);
+      setAccessToken(AUTH_BYPASS_TOKEN);
+      setConfigError(null);
+      window.location.assign(redirectPath ?? "/accounts");
+      return;
+    }
+
     const oktaAuth = oktaAuthRef.current;
     if (!oktaAuth) {
       throw new Error("Okta client is not configured.");
@@ -141,6 +198,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const logout = useCallback(async () => {
+    if (AUTH_BYPASS_ENABLED) {
+      setIsAuthenticated(false);
+      setUser(null);
+      setAccessToken(null);
+      setConfigError(null);
+      window.location.assign("/login");
+      return;
+    }
+
     const oktaAuth = oktaAuthRef.current;
     if (!oktaAuth) {
       setIsAuthenticated(false);
@@ -167,6 +233,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleLoginCallback = useCallback(async () => {
+    if (AUTH_BYPASS_ENABLED) {
+      setIsAuthenticated(true);
+      setUser(AUTH_BYPASS_USER);
+      setAccessToken(AUTH_BYPASS_TOKEN);
+      setConfigError(null);
+      window.location.replace("/accounts");
+      return;
+    }
+
     const oktaAuth = oktaAuthRef.current;
     if (!oktaAuth) {
       throw new Error("Okta client is not configured.");

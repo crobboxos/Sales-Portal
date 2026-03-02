@@ -24,6 +24,15 @@ def _get_verifier() -> OktaJWTVerifier:
 async def get_current_user(
     credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer_scheme)],
 ) -> UserPrincipal:
+    settings = get_settings()
+    if settings.auth_bypass_enabled:
+        return UserPrincipal(
+            sub=settings.auth_bypass_subject,
+            name=settings.auth_bypass_name,
+            email=settings.auth_bypass_email,
+            groups=settings.bypass_groups,
+        )
+
     if credentials is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing bearer token.")
 

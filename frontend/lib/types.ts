@@ -37,6 +37,15 @@ export interface OpportunityPatchRequest {
   NextStep?: string;
 }
 
+export interface OpportunityCreateRequest {
+  Name: string;
+  StageName: string;
+  CloseDate: string;
+  Amount?: number;
+  NextStep?: string;
+  Description?: string;
+}
+
 export interface QuoteLineItem {
   id: string;
   productName: string;

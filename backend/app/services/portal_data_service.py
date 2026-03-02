@@ -13,6 +13,7 @@ from app.models.schemas import (
     AccountSummary,
     LeadDetail,
     LeadSummary,
+    OpportunityCreateRequest,
     OpportunityDetail,
     OpportunityPatchRequest,
     OpportunitySummary,
@@ -176,6 +177,27 @@ class PortalDataService:
             nextStep=record.get("NextStep"),
             lastModified=record.get("LastModifiedDate"),
         )
+
+    async def create_opportunity(self, payload: OpportunityCreateRequest) -> OpportunityDetail:
+        if self.settings.sf_use_mock_data:
+            now = datetime.now(UTC)
+            opportunity = {
+                "id": self._next_mock_opportunity_id(),
+                "name": payload.name.strip(),
+                "account": None,
+                "stageName": payload.stage_name.strip(),
+                "amount": payload.amount,
+                "closeDate": payload.close_date,
+                "owner": "Sales Portal User",
+                "nextStep": payload.next_step.strip() if payload.next_step and payload.next_step.strip() else None,
+                "description": payload.description.strip() if payload.description and payload.description.strip() else None,
+                "lastModified": now,
+            }
+            self._opportunities.insert(0, opportunity)
+            return OpportunityDetail.model_validate(opportunity)
+
+        record_id = await self.salesforce.create_record("Opportunity", payload.to_salesforce_payload())
+        return await self.get_opportunity(record_id)
 
     async def update_opportunity(self, opportunity_id: str, updates: OpportunityPatchRequest) -> OpportunityDetail:
         if self.settings.sf_use_mock_data:
@@ -361,6 +383,18 @@ class PortalDataService:
         start = (page - 1) * page_size
         stop = start + page_size
         return items[start:stop], len(items)
+
+    def _next_mock_opportunity_id(self) -> str:
+        prefix = "006A"
+        next_number = 1
+        for item in self._opportunities:
+            record_id = item.get("id", "")
+            if not isinstance(record_id, str) or not record_id.startswith(prefix):
+                continue
+            suffix = record_id[len(prefix) :]
+            if suffix.isdigit():
+                next_number = max(next_number, int(suffix) + 1)
+        return f"{prefix}{next_number:06d}"
 
     @staticmethod
     def _find_one(items: Iterable[dict], record_id: str) -> dict:

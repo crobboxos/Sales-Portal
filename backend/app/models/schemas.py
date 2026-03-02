@@ -74,6 +74,39 @@ class OpportunityPatchRequest(PortalBaseModel):
         return payload
 
 
+class OpportunityCreateRequest(PortalBaseModel):
+    name: str = Field(alias="Name")
+    stage_name: str = Field(alias="StageName")
+    close_date: date = Field(alias="CloseDate")
+    amount: float | None = Field(default=None, alias="Amount")
+    next_step: str | None = Field(default=None, alias="NextStep")
+    description: str | None = Field(default=None, alias="Description")
+
+    @model_validator(mode="after")
+    def validate_payload(self) -> "OpportunityCreateRequest":
+        if not self.name.strip():
+            raise ValueError("Name is required.")
+        if not self.stage_name.strip():
+            raise ValueError("StageName is required.")
+        if self.amount is not None and self.amount < 0:
+            raise ValueError("Amount must be greater than or equal to zero.")
+        return self
+
+    def to_salesforce_payload(self) -> dict[str, str | float]:
+        payload: dict[str, str | float] = {
+            "Name": self.name.strip(),
+            "StageName": self.stage_name.strip(),
+            "CloseDate": self.close_date.isoformat(),
+        }
+        if self.amount is not None:
+            payload["Amount"] = self.amount
+        if self.next_step and self.next_step.strip():
+            payload["NextStep"] = self.next_step.strip()
+        if self.description and self.description.strip():
+            payload["Description"] = self.description.strip()
+        return payload
+
+
 class QuoteLineItem(PortalBaseModel):
     id: str
     product_name: str = Field(alias="productName")

@@ -47,28 +47,35 @@ class SalesforceService:
         if self._cached_token and not self._cached_token.is_expired():
             return self._cached_token
 
-        assertion = self._build_jwt_assertion()
+        payload = self._build_token_request_payload()
+        auth_flow = self._auth_flow_name(payload["grant_type"])
         token_url = f"{self.settings.sf_login_url.rstrip('/')}/services/oauth2/token"
-        payload = {
-            "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
-            "assertion": assertion,
-        }
 
         async with httpx.AsyncClient(timeout=self.settings.request_timeout_seconds) as client:
             response = await client.post(token_url, data=payload)
 
         if response.status_code != 200:
-            logger.error("Salesforce token request failed (%s): %s", response.status_code, response.text)
-            raise SalesforceAuthError("Failed to obtain Salesforce access token.")
+            logger.error(
+                "Salesforce token request failed (%s, flow=%s): %s",
+                response.status_code,
+                auth_flow,
+                response.text,
+            )
+            raise SalesforceAuthError(f"Failed to obtain Salesforce access token using {auth_flow} flow.")
 
         body = response.json()
         issued_at_ms = int(body.get("issued_at", int(time.time() * 1000)))
         # Salesforce token response does not include explicit expiry; keep cache conservative.
         expires_at = datetime.fromtimestamp(issued_at_ms / 1000, tz=UTC) + timedelta(minutes=10)
 
+        access_token = body.get("access_token")
+        instance_url = body.get("instance_url")
+        if not access_token or not instance_url:
+            raise SalesforceAuthError("Salesforce token response missing access_token or instance_url.")
+
         token = SalesforceToken(
-            access_token=body["access_token"],
-            instance_url=body["instance_url"],
+            access_token=access_token,
+            instance_url=instance_url,
             expires_at=expires_at,
         )
         self._cached_token = token
@@ -91,6 +98,16 @@ class SalesforceService:
         token = await self.get_access_token()
         endpoint = f"{token.instance_url}/services/data/{self.settings.sf_api_version}/sobjects/{sobject}/{record_id}"
         await self._request("PATCH", endpoint, token.access_token, json_body=payload)
+
+    async def create_record(self, sobject: str, payload: dict) -> str:
+        token = await self.get_access_token()
+        endpoint = f"{token.instance_url}/services/data/{self.settings.sf_api_version}/sobjects/{sobject}"
+        response = await self._request("POST", endpoint, token.access_token, json_body=payload)
+        body = response.json()
+        record_id = body.get("id")
+        if not record_id:
+            raise SalesforceAPIError("Salesforce create response missing record ID.")
+        return record_id
 
     @staticmethod
     def build_accounts_soql(search: str, page_size: int, offset: int) -> str:
@@ -166,6 +183,11 @@ class SalesforceService:
         return f"{base_url.rstrip('/')}/apex/APXTConga4__Conga_Composer?{urlencode(params)}"
 
     def _build_jwt_assertion(self) -> str:
+        if not self.settings.sf_username:
+            raise SalesforceAuthError("SF_USERNAME is required for Salesforce JWT bearer auth.")
+        if not self.settings.sf_private_key_path:
+            raise SalesforceAuthError("SF_PRIVATE_KEY_PATH is required for Salesforce JWT bearer auth.")
+
         private_key_path = Path(self.settings.sf_private_key_path)
         if not private_key_path.exists():
             raise SalesforceAuthError(f"Salesforce private key not found at {private_key_path}.")
@@ -178,6 +200,31 @@ class SalesforceService:
             "exp": int(time.time()) + 180,
         }
         return jwt.encode(claims, private_key, algorithm="RS256")
+
+    def _build_token_request_payload(self) -> dict[str, str]:
+        client_id = self.settings.sf_client_id.strip()
+        if not client_id:
+            raise SalesforceAuthError("SF_CLIENT_ID is required for Salesforce authentication.")
+
+        client_secret = self.settings.sf_client_secret.strip()
+        if client_secret:
+            return {
+                "grant_type": "client_credentials",
+                "client_id": client_id,
+                "client_secret": client_secret,
+            }
+
+        assertion = self._build_jwt_assertion()
+        return {
+            "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+            "assertion": assertion,
+        }
+
+    @staticmethod
+    def _auth_flow_name(grant_type: str) -> str:
+        if grant_type == "client_credentials":
+            return "client_credentials"
+        return "jwt_bearer"
 
     async def _request(
         self,

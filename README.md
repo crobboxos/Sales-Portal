@@ -4,7 +4,7 @@ Sales Management Portal with:
 - `frontend/`: Next.js (TypeScript) + Tailwind
 - `backend/`: FastAPI (Python)
 - Okta OIDC for internal user auth
-- Salesforce Sandbox integration via OAuth 2.0 JWT Bearer Flow (single integration user)
+- Salesforce Sandbox integration via OAuth 2.0 (Client Credentials or JWT Bearer)
 - Conga Composer trigger endpoint for Quote PDF generation
 
 The current default mode is mocked backend data (`SF_USE_MOCK_DATA=true`) so the app runs end-to-end locally before enabling Salesforce/Conga.
@@ -61,8 +61,9 @@ OKTA_CLIENT_ID=
 OKTA_CLIENT_SECRET=
 SF_LOGIN_URL=https://test.salesforce.com
 SF_CLIENT_ID=
-SF_USERNAME=
-SF_PRIVATE_KEY_PATH=
+SF_CLIENT_SECRET= # for client credentials flow
+SF_USERNAME= # for JWT bearer flow
+SF_PRIVATE_KEY_PATH= # for JWT bearer flow
 CONGA_BASE_URL=
 CONGA_TEMPLATE_ID=
 CORS_ALLOWED_ORIGINS=http://localhost:3000
@@ -80,6 +81,29 @@ Notes:
 - `NEXT_PUBLIC_OKTA_ISSUER` should match `OKTA_ISSUER`.
 - `NEXT_PUBLIC_OKTA_CLIENT_ID` should match `OKTA_CLIENT_ID` for frontend sign-in.
 - Backend validates access tokens against `OKTA_ISSUER`, `OKTA_AUDIENCE`, and JWKS signature.
+
+## Temporary Local Auth Bypass (for UI/API testing)
+
+If you want to test portal functionality without Okta temporarily, enable both flags:
+
+```dotenv
+# backend/.env
+AUTH_BYPASS_ENABLED=true
+
+# frontend/.env.local
+NEXT_PUBLIC_AUTH_BYPASS_ENABLED=true
+```
+
+Optional overrides:
+- Backend test principal: `AUTH_BYPASS_SUBJECT`, `AUTH_BYPASS_NAME`, `AUTH_BYPASS_EMAIL`, `AUTH_BYPASS_GROUPS`
+- Frontend test principal: `NEXT_PUBLIC_AUTH_BYPASS_NAME`, `NEXT_PUBLIC_AUTH_BYPASS_EMAIL`, `NEXT_PUBLIC_AUTH_BYPASS_GROUPS`, `NEXT_PUBLIC_AUTH_BYPASS_TOKEN`
+
+When bypass is enabled, the app uses a local test user with default groups:
+- `SalesPortal_Admin`
+- `SalesPortal_Sales`
+- `SalesPortal_ReadOnly`
+
+Do not enable bypass in shared or production environments.
 
 ## Okta Setup Notes
 
@@ -99,17 +123,17 @@ Authorization behavior in backend:
 - Read endpoints: any of the 3 groups.
 - Write endpoints (`PATCH /api/opportunities/{id}`, `POST /api/quotes/{id}/generate`): `SalesPortal_Admin` or `SalesPortal_Sales`.
 
-## Salesforce Connected App + JWT Bearer (Sandbox)
+## Salesforce Connected App Auth (Sandbox)
 
-1. In Salesforce Sandbox, create a Connected App.
-2. Enable OAuth and JWT bearer flow:
-   - Consumer Key => `SF_CLIENT_ID`
-   - Upload certificate matching your private key (`SF_PRIVATE_KEY_PATH` PEM pair).
-3. Configure integration user and pre-authorize app policies.
-4. Set:
-   - `SF_LOGIN_URL=https://test.salesforce.com`
-   - `SF_USERNAME=<integration-user-username>`
-5. Keep `SF_USE_MOCK_DATA=true` for local mock mode, then set to `false` to query Salesforce.
+1. In Salesforce Sandbox, create a Connected App and enable OAuth.
+2. Configure one of these backend auth modes:
+   - Client credentials: set `SF_CLIENT_ID` and `SF_CLIENT_SECRET`.
+   - JWT bearer: set `SF_CLIENT_ID`, `SF_USERNAME`, and `SF_PRIVATE_KEY_PATH` (certificate/private key pair).
+3. Keep `SF_USE_MOCK_DATA=true` for local mock mode, then set to `false` to query Salesforce.
+
+Auth mode selection in backend is automatic:
+- If `SF_CLIENT_SECRET` is present, client credentials flow is used.
+- Otherwise, JWT bearer flow is used.
 
 Salesforce service methods available:
 - `get_access_token()`

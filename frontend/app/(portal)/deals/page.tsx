@@ -7,14 +7,24 @@ import { useAuth } from "@/components/auth-provider";
 import { Pagination } from "@/components/pagination";
 import { apiJson, ApiError } from "@/lib/api";
 import { formatCurrency, formatDate } from "@/lib/format";
-import { Opportunity, PageResponse } from "@/lib/types";
+import { Opportunity, OpportunityCreateRequest, PageResponse } from "@/lib/types";
 
 
 const PAGE_SIZE = 10;
+const WRITE_GROUPS = ["SalesPortal_Admin", "SalesPortal_Sales"];
+
+function getDefaultCloseDate(): string {
+  const now = new Date();
+  now.setDate(now.getDate() + 30);
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
 export default function DealsPage() {
   const router = useRouter();
-  const { accessToken } = useAuth();
+  const { accessToken, hasAnyGroup } = useAuth();
   const [searchInput, setSearchInput] = useState("");
   const [stageInput, setStageInput] = useState("");
   const [ownerInput, setOwnerInput] = useState("");
@@ -23,6 +33,19 @@ export default function DealsPage() {
   const [data, setData] = useState<PageResponse<Opportunity>>({ items: [], page: 1, pageSize: PAGE_SIZE, total: 0 });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [newDealName, setNewDealName] = useState("");
+  const [newDealStageName, setNewDealStageName] = useState("Qualification");
+  const [newDealCloseDate, setNewDealCloseDate] = useState(getDefaultCloseDate());
+  const [newDealAmount, setNewDealAmount] = useState("");
+  const [newDealNextStep, setNewDealNextStep] = useState("");
+  const [newDealDescription, setNewDealDescription] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
+
+  const canWrite = hasAnyGroup(WRITE_GROUPS);
 
   useEffect(() => {
     if (!accessToken) {
@@ -51,7 +74,7 @@ export default function DealsPage() {
     };
 
     void run();
-  }, [accessToken, query, page]);
+  }, [accessToken, query, page, refreshKey]);
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -63,10 +86,109 @@ export default function DealsPage() {
     });
   };
 
+  const openCreateModal = () => {
+    if (!canWrite) {
+      return;
+    }
+    setNewDealName("");
+    setNewDealStageName("Qualification");
+    setNewDealCloseDate(getDefaultCloseDate());
+    setNewDealAmount("");
+    setNewDealNextStep("");
+    setNewDealDescription("");
+    setCreateError(null);
+    setIsCreateModalOpen(true);
+  };
+
+  const closeCreateModal = () => {
+    if (isCreating) {
+      return;
+    }
+    setIsCreateModalOpen(false);
+  };
+
+  const onCreateDealSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!accessToken || !canWrite) {
+      return;
+    }
+
+    const trimmedName = newDealName.trim();
+    const trimmedStageName = newDealStageName.trim();
+    if (!trimmedName) {
+      setCreateError("Deal name is required.");
+      return;
+    }
+    if (!trimmedStageName) {
+      setCreateError("Stage is required.");
+      return;
+    }
+    if (!newDealCloseDate.trim()) {
+      setCreateError("Close date is required.");
+      return;
+    }
+
+    const payload: OpportunityCreateRequest = {
+      Name: trimmedName,
+      StageName: trimmedStageName,
+      CloseDate: newDealCloseDate.trim(),
+    };
+
+    if (newDealAmount.trim()) {
+      const parsedAmount = Number(newDealAmount);
+      if (Number.isNaN(parsedAmount) || parsedAmount < 0) {
+        setCreateError("Amount must be a valid number greater than or equal to zero.");
+        return;
+      }
+      payload.Amount = parsedAmount;
+    }
+
+    if (newDealNextStep.trim()) {
+      payload.NextStep = newDealNextStep.trim();
+    }
+
+    if (newDealDescription.trim()) {
+      payload.Description = newDealDescription.trim();
+    }
+
+    setIsCreating(true);
+    setCreateError(null);
+    try {
+      await apiJson<Opportunity>("/api/opportunities", accessToken, {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+      setIsCreateModalOpen(false);
+      setNewDealName("");
+      setNewDealStageName("Qualification");
+      setNewDealCloseDate(getDefaultCloseDate());
+      setNewDealAmount("");
+      setNewDealNextStep("");
+      setNewDealDescription("");
+      setPage(1);
+      setRefreshKey((previous) => previous + 1);
+    } catch (requestError) {
+      const message = requestError instanceof ApiError ? requestError.message : "Failed to create deal.";
+      setCreateError(message);
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
   return (
     <section>
       <div className="mb-4 flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold text-slate-900">Deals (Opportunities)</h2>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-2xl font-semibold text-slate-900">Deals (Opportunities)</h2>
+          <button
+            type="button"
+            onClick={openCreateModal}
+            disabled={!canWrite}
+            className="rounded-md bg-brand-700 px-4 py-2 text-sm font-medium text-white hover:bg-brand-900 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            New Deal
+          </button>
+        </div>
         <form onSubmit={onSubmit} className="grid gap-2 sm:grid-cols-4">
           <input
             value={searchInput}
@@ -151,6 +273,93 @@ export default function DealsPage() {
       </div>
 
       <Pagination page={data.page} pageSize={data.pageSize} total={data.total} onPageChange={setPage} />
+
+      {isCreateModalOpen ? (
+        <div className="fixed inset-0 z-30 flex items-center justify-center bg-slate-900/40 px-4 py-8">
+          <div className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-5 shadow-xl">
+            <h3 className="text-lg font-semibold text-slate-900">New Deal</h3>
+            <p className="mt-1 text-sm text-slate-600">Enter the basic details to create an opportunity in Salesforce.</p>
+
+            <form onSubmit={(event) => void onCreateDealSubmit(event)} className="mt-4 grid gap-3">
+              <label className="text-sm text-slate-700">
+                Deal Name
+                <input
+                  value={newDealName}
+                  onChange={(event) => setNewDealName(event.target.value)}
+                  required
+                  className="mt-1 w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500"
+                />
+              </label>
+              <label className="text-sm text-slate-700">
+                Stage
+                <input
+                  value={newDealStageName}
+                  onChange={(event) => setNewDealStageName(event.target.value)}
+                  required
+                  className="mt-1 w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500"
+                />
+              </label>
+              <label className="text-sm text-slate-700">
+                Close Date
+                <input
+                  type="date"
+                  value={newDealCloseDate}
+                  onChange={(event) => setNewDealCloseDate(event.target.value)}
+                  required
+                  className="mt-1 w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500"
+                />
+              </label>
+              <label className="text-sm text-slate-700">
+                Amount
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={newDealAmount}
+                  onChange={(event) => setNewDealAmount(event.target.value)}
+                  className="mt-1 w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500"
+                />
+              </label>
+              <label className="text-sm text-slate-700">
+                Next Step
+                <input
+                  value={newDealNextStep}
+                  onChange={(event) => setNewDealNextStep(event.target.value)}
+                  className="mt-1 w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500"
+                />
+              </label>
+              <label className="text-sm text-slate-700">
+                Description
+                <textarea
+                  value={newDealDescription}
+                  onChange={(event) => setNewDealDescription(event.target.value)}
+                  rows={3}
+                  className="mt-1 w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500"
+                />
+              </label>
+              {createError ? <p className="text-sm text-red-700">{createError}</p> : null}
+              {!canWrite ? <p className="text-xs text-amber-700">Read-only role: creating deals requires SalesPortal_Sales or SalesPortal_Admin.</p> : null}
+              <div className="mt-2 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={closeCreateModal}
+                  disabled={isCreating}
+                  className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isCreating || !canWrite}
+                  className="rounded-md bg-brand-700 px-4 py-2 text-sm font-medium text-white hover:bg-brand-900 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {isCreating ? "Saving..." : "Save Deal"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

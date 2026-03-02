@@ -11,6 +11,7 @@ from app.models.schemas import (
     HealthResponse,
     LeadDetail,
     LeadSummary,
+    OpportunityCreateRequest,
     OpportunityDetail,
     OpportunityPatchRequest,
     OpportunitySummary,
@@ -81,6 +82,15 @@ async def list_opportunities(
         page=page,
         page_size=page_size,
     )
+
+
+@router.post("/opportunities", response_model=OpportunityDetail, status_code=status.HTTP_201_CREATED)
+async def create_opportunity(
+    payload: OpportunityCreateRequest,
+    _: Annotated[UserPrincipal, Depends(write_access)],
+    service: Annotated[PortalDataService, Depends(get_portal_data_service)],
+) -> OpportunityDetail:
+    return await service.create_opportunity(payload)
 
 
 @router.get("/opportunities/{opportunity_id}", response_model=OpportunityDetail)
