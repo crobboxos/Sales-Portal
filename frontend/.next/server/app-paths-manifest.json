@@ -1,3 +1,9 @@
 {
-  "/(portal)/deals/[id]/page": "app/(portal)/deals/[id]/page.js"
+  "/(portal)/deals/[id]/page": "app/(portal)/deals/[id]/page.js",
+  "/(portal)/accounts/page": "app/(portal)/accounts/page.js",
+  "/(portal)/accounts/[id]/page": "app/(portal)/accounts/[id]/page.js",
+  "/(portal)/quotes/[id]/page": "app/(portal)/quotes/[id]/page.js",
+  "/(portal)/leads/[id]/page": "app/(portal)/leads/[id]/page.js",
+  "/(portal)/leads/page": "app/(portal)/leads/page.js",
+  "/(portal)/quotes/page": "app/(portal)/quotes/page.js"
 }
